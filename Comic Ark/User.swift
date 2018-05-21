@@ -9,8 +9,9 @@
 import Foundation
 
 class User {
-    var name = String()
-    var password = String()
+    private var name = String()
+    private var password = String()
+    private var email = String()
     var collection = [Comic]()
     var isPrivate: Bool = false
     
@@ -18,6 +19,15 @@ class User {
         let instance = User()
         return instance
     }()
+    
+    func addToCollection(comic: Comic) {
+        
+        if !collection.contains(where: { (item) -> Bool in
+            item.isbn == comic.isbn
+        }) {
+            collection.append(comic)
+        }   
+    }
     
     private init() {}
 }

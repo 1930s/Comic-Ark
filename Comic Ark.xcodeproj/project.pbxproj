@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		AC0F795820A9C44C000C1A3A /* DecodedJSONResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC0F795720A9C44C000C1A3A /* DecodedJSONResponse.swift */; };
+		AC3F964320AF257300E71E14 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC3F964220AF257300E71E14 /* SettingsViewController.swift */; };
 		ACAFA6A420A0D44E007ED1FE /* Comic.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACAFA6A320A0D44E007ED1FE /* Comic.swift */; };
 		ACAFA6A620A0D490007ED1FE /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACAFA6A520A0D490007ED1FE /* User.swift */; };
 		ACC6BA9420A0C1D300FAB328 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACC6BA9320A0C1D300FAB328 /* AppDelegate.swift */; };
@@ -17,12 +19,15 @@
 		ACC6BAA920A0C64E00FAB328 /* CollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACC6BAA720A0C64E00FAB328 /* CollectionCell.swift */; };
 		ACC6BAAA20A0C64E00FAB328 /* CollectionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = ACC6BAA820A0C64E00FAB328 /* CollectionCell.xib */; };
 		ACC6BAAC20A0C83D00FAB328 /* CollectorsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACC6BAAB20A0C83D00FAB328 /* CollectorsViewController.swift */; };
+		ACEAF32B20B2F773001E459A /* Users.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACEAF32A20B2F773001E459A /* Users.swift */; };
 		F8853F37D9B8B20B0810B0E9 /* Pods_Comic_Ark.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BA68AD5AE6B0C38E9DB460FB /* Pods_Comic_Ark.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		3E3939805DD4781C5359390A /* Pods-Comic Ark.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Comic Ark.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Comic Ark/Pods-Comic Ark.debug.xcconfig"; sourceTree = "<group>"; };
 		81FADCB2D8F9504F79D863B3 /* Pods-Comic Ark.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Comic Ark.release.xcconfig"; path = "Pods/Target Support Files/Pods-Comic Ark/Pods-Comic Ark.release.xcconfig"; sourceTree = "<group>"; };
+		AC0F795720A9C44C000C1A3A /* DecodedJSONResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DecodedJSONResponse.swift; sourceTree = "<group>"; };
+		AC3F964220AF257300E71E14 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		ACAFA6A320A0D44E007ED1FE /* Comic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Comic.swift; sourceTree = "<group>"; };
 		ACAFA6A520A0D490007ED1FE /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		ACC6BA9020A0C1D300FAB328 /* Comic Ark.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Comic Ark.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -35,6 +40,7 @@
 		ACC6BAA720A0C64E00FAB328 /* CollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionCell.swift; sourceTree = "<group>"; };
 		ACC6BAA820A0C64E00FAB328 /* CollectionCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CollectionCell.xib; sourceTree = "<group>"; };
 		ACC6BAAB20A0C83D00FAB328 /* CollectorsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectorsViewController.swift; sourceTree = "<group>"; };
+		ACEAF32A20B2F773001E459A /* Users.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Users.swift; sourceTree = "<group>"; };
 		BA68AD5AE6B0C38E9DB460FB /* Pods_Comic_Ark.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Comic_Ark.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -82,6 +88,7 @@
 				ACC6BA9320A0C1D300FAB328 /* AppDelegate.swift */,
 				ACC6BA9520A0C1D300FAB328 /* PrivateCollectionViewController.swift */,
 				ACC6BAAB20A0C83D00FAB328 /* CollectorsViewController.swift */,
+				AC3F964220AF257300E71E14 /* SettingsViewController.swift */,
 				ACC6BA9720A0C1D300FAB328 /* Main.storyboard */,
 				ACC6BA9A20A0C1D400FAB328 /* Assets.xcassets */,
 				ACC6BA9C20A0C1D400FAB328 /* LaunchScreen.storyboard */,
@@ -90,6 +97,8 @@
 				ACC6BAA820A0C64E00FAB328 /* CollectionCell.xib */,
 				ACAFA6A320A0D44E007ED1FE /* Comic.swift */,
 				ACAFA6A520A0D490007ED1FE /* User.swift */,
+				ACEAF32A20B2F773001E459A /* Users.swift */,
+				AC0F795720A9C44C000C1A3A /* DecodedJSONResponse.swift */,
 			);
 			path = "Comic Ark";
 			sourceTree = "<group>";
@@ -217,11 +226,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				ACC6BA9620A0C1D300FAB328 /* PrivateCollectionViewController.swift in Sources */,
+				ACEAF32B20B2F773001E459A /* Users.swift in Sources */,
 				ACC6BA9420A0C1D300FAB328 /* AppDelegate.swift in Sources */,
 				ACAFA6A620A0D490007ED1FE /* User.swift in Sources */,
 				ACAFA6A420A0D44E007ED1FE /* Comic.swift in Sources */,
 				ACC6BAAC20A0C83D00FAB328 /* CollectorsViewController.swift in Sources */,
 				ACC6BAA920A0C64E00FAB328 /* CollectionCell.swift in Sources */,
+				AC0F795820A9C44C000C1A3A /* DecodedJSONResponse.swift in Sources */,
+				AC3F964320AF257300E71E14 /* SettingsViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

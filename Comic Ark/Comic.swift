@@ -9,22 +9,27 @@
 import Foundation
 import UIKit
 
-class Comic {
-    let title: String
-    let author: String
-    let cover: UIImage
-    var rating: Star
+struct Comic {
+    let title: String?
+    let isbn: String
+    let authors: [String]?
+    let publisher: String?
+    let coverURL: URL?
+    var rating: Star? = nil
     
-    init(name: String, author: String, cover: UIImage, rating: Star) {
-        self.title = name
-        self.author = author
-        self.cover = cover
-        self.rating = rating
+    init(title: String?, isbn: String, authors: [String]?, publisher: String?, coverURL: URL?) {
+        self.title = title
+        self.isbn = isbn
+        self.authors = authors
+        self.publisher = publisher
+        self.coverURL = coverURL
     }
 }
 
+
+
 enum Star {
-    case oneStar
-    case twoStars
-    case threeStars
+    case one
+    case two
+    case three
 }
