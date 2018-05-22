@@ -44,7 +44,7 @@ class CollectionCell: UITableViewCell {
                             self.coverView.image = UIImage(data: data)
                         }
                     }
-                }
+                }    
             }
         }
     }

@@ -81,7 +81,7 @@ class PrivateCollectionViewController: UIViewController {
                              isbn: isbn,
                              authors: decodedComic.volumeInfo?.authors,
                              publisher: decodedComic.volumeInfo?.publisher,
-                             coverURL: URL(string: (decodedComic.volumeInfo?.imageLinks?.thumbnail)!))
+                             coverURL: URL(string: (decodedComic.volumeInfo?.imageLinks?.thumbnail)!), coverImage: nil)
         
         return newComic
     }

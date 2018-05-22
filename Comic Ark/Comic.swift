@@ -15,14 +15,16 @@ struct Comic {
     let authors: [String]?
     let publisher: String?
     let coverURL: URL?
+    let coverImage: UIImage?
     var rating: Star? = nil
     
-    init(title: String?, isbn: String, authors: [String]?, publisher: String?, coverURL: URL?) {
+    init(title: String?, isbn: String, authors: [String]?, publisher: String?, coverURL: URL?, coverImage: UIImage?) {
         self.title = title
         self.isbn = isbn
         self.authors = authors
         self.publisher = publisher
         self.coverURL = coverURL
+        self.coverImage = coverImage
     }
 }
 
