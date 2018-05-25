@@ -18,16 +18,17 @@ struct Comic {
     let coverImage: UIImage?
     var rating: Star? = nil
     
-    init(title: String?, isbn: String, authors: [String]?, publisher: String?, coverURL: URL?, coverImage: UIImage?) {
-        self.title = title
+    init(jsonResponse: DecodedJSONResponse, isbn: String) {
+        let decodedComic = jsonResponse.items[0]
+        
+        self.title = decodedComic.volumeInfo?.title
         self.isbn = isbn
-        self.authors = authors
-        self.publisher = publisher
-        self.coverURL = coverURL
-        self.coverImage = coverImage
+        self.authors = decodedComic.volumeInfo?.authors
+        self.publisher = decodedComic.volumeInfo?.publisher
+        self.coverURL = URL(string: (decodedComic.volumeInfo?.imageLinks?.thumbnail)!)
+        self.coverImage = nil
     }
 }
-
 
 
 enum Star {

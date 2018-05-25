@@ -10,11 +10,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Comic Ark/PrivateCollectionViewController.swift"
-            timestampString = "548715953.6266249"
+            timestampString = "548882471.449917"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "127"
-            endingLineNumber = "127"
+            startingLineNumber = "113"
+            endingLineNumber = "113"
             landmarkName = "scanner(_:didCaptureCode:type:)"
             landmarkType = "7">
          </BreakpointContent>

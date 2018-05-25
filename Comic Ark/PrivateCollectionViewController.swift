@@ -13,8 +13,6 @@ class PrivateCollectionViewController: UIViewController {
     
     @IBOutlet weak var tableView: UITableView!
     
-    var decodedJSON: DecodedJSONResponse?
-    
     let barcodeScannerViewController = BarcodeScannerViewController()
     
     override func viewDidLoad() {
@@ -38,53 +36,11 @@ class PrivateCollectionViewController: UIViewController {
         present(barcodeScannerViewController, animated: true, completion: nil)
     }
     
-    // Method that sends a request to Google Books containing an ISBN number and returns book data:
-    
-    func fetchJSON(for isbn: String, finished: @escaping () -> Void) {
-        
-        let jsonUrlString = "https://www.googleapis.com/books/v1/volumes?q=isbn" + isbn + "&key=AIzaSyBCGhzSNu1qzUAW4VbF_h1bET_wPfyZzqM"
-        
-        guard let url = URL(string: jsonUrlString) else {
-            print("Invalid URL string.")
-            return }
-        
-        print(url)
-        
-        URLSession.shared.dataTask(with: url) { (data, response, error) in
-            guard let data = data else { return }
-            
-            let jsonForPrinting = try! JSONSerialization.jsonObject(with: data, options: [])
-            print(jsonForPrinting)
-            
-            do {
-
-                let decoder = JSONDecoder()
-                self.decodedJSON = try decoder.decode(DecodedJSONResponse.self, from: data)
-                
-            } catch let error {
-                print("Failed to decode JSON:", error)
-                self.decodedJSON = nil
-            }
-            
-            finished()
-
-        }.resume()
-    }
+   
     
     // Method that takes as input a DecodedJSONResponse object and outputs a Comic object:
     
-    func moldJSONResponseIntoComicModel(jsonResponse: DecodedJSONResponse, isbn: String) -> Comic {
-        
-        let decodedComic = jsonResponse.items[0]
-        
-        let newComic = Comic(title: decodedComic.volumeInfo?.title,
-                             isbn: isbn,
-                             authors: decodedComic.volumeInfo?.authors,
-                             publisher: decodedComic.volumeInfo?.publisher,
-                             coverURL: URL(string: (decodedComic.volumeInfo?.imageLinks?.thumbnail)!), coverImage: nil)
-        
-        return newComic
-    }
+    
 }
 
 // MARK: - UITableView delegate methods:
@@ -123,9 +79,9 @@ extension PrivateCollectionViewController: BarcodeScannerCodeDelegate,  BarcodeS
         
         print(code)
         
-        fetchJSON(for: code) {
-            if self.decodedJSON != nil {
-                let newComic = self.moldJSONResponseIntoComicModel(jsonResponse: self.decodedJSON!, isbn: code)
+        NetworkManager.getJSONData(for: code) { (decodedJSON) in
+            if decodedJSON != nil {
+                let newComic = Comic.init(jsonResponse: decodedJSON!, isbn: code)
                 
                 let alertController = UIAlertController(title: "Product found!", message: "Do you want to add \(newComic.title!) to your collection?", preferredStyle: .actionSheet)
                 let addAction = UIAlertAction(title: "Add", style: .default) { (_) in
@@ -137,7 +93,6 @@ extension PrivateCollectionViewController: BarcodeScannerCodeDelegate,  BarcodeS
                     
                     controller.dismiss(animated: true) {
                         controller.reset(animated: false)
-                        self.decodedJSON = nil
                     }
                 }
                 let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) { (_) in
@@ -151,12 +106,11 @@ extension PrivateCollectionViewController: BarcodeScannerCodeDelegate,  BarcodeS
                     self.barcodeScannerViewController.messageViewController.textLabel.text?.removeAll()
                 })
             } else {
- 
                 DispatchQueue.main.async {
                     self.barcodeScannerViewController.resetWithError()
                 }
             }
-        }   
+        }
     }
     
     func scanner(_ controller: BarcodeScannerViewController, didReceiveError error: Error) {
