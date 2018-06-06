@@ -13,7 +13,10 @@ class User {
     private var password = String()
     private var email = String()
     var collection = [Comic]()
+    
     var isPrivate: Bool = false
+    
+    var sessionId = String()
     
     static let sharedInstance: User = {
         let instance = User()
@@ -25,9 +28,8 @@ class User {
         if !collection.contains(where: { (item) -> Bool in
             item.isbn == comic.isbn
         }) {
-            collection.append(comic)
+            collection.insert(comic, at: 0)
         }   
     }
-    
     private init() {}
 }

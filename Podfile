@@ -7,5 +7,6 @@ target 'Comic Ark' do
   # Pods for Comic Ark
 
     pod 'BarcodeScanner'
+    pod 'Alamofire', '~> 4.7'
 
 end

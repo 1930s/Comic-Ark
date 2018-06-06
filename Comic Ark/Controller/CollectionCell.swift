@@ -17,35 +17,26 @@ class CollectionCell: UITableViewCell {
     var comic: Comic! {
         didSet {
             
-            if let comicTitle = comic.title {
-                titleLabel.text = comicTitle
-            }
+            titleLabel.text = comic.title
             
-            if let comicAuthors = comic.authors {
-                authorsLabel.text?.removeAll()
+            authorsLabel.text?.removeAll()
                 
-                for (index, author) in comicAuthors.enumerated() {
-                    if index != comicAuthors.count - 1 {
-                        authorsLabel.text?.append(author + ", ")
-                    } else {
-                        authorsLabel.text?.append(author)
+            for (index, author) in comic.authors.enumerated() {
+                if index != comic.authors.count - 1 {
+                    authorsLabel.text?.append(author + ", ")
+                } else {
+                    authorsLabel.text?.append(author)
                     }
                 }
-            }
+            
            
             if let comicPublisher = comic.publisher {
                 publisherLabel.text = comicPublisher
             }
             
-            if let comicCoverURL = comic.coverURL {
-                DispatchQueue.global().async {
-                    if let data = try? Data(contentsOf: comicCoverURL) {
-                        DispatchQueue.main.async {
-                            self.coverView.image = UIImage(data: data)
-                        }
-                    }
-                }    
-            }
+//            if let comicCover = comic.coverImage {
+//                coverView.image = comicCover
+//            }
         }
     }
     

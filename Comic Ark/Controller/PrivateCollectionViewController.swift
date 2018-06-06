@@ -18,7 +18,7 @@ class PrivateCollectionViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        tableView.register(UINib(nibName: "CollectionCell", bundle: nil), forCellReuseIdentifier: "CollectionCell")
+        
         
         tableView.delegate = self
         tableView.dataSource = self
@@ -28,6 +28,15 @@ class PrivateCollectionViewController: UIViewController {
         barcodeScannerViewController.codeDelegate = self
         barcodeScannerViewController.errorDelegate = self
         barcodeScannerViewController.dismissalDelegate = self
+        
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        tableView.register(UINib(nibName: "CollectionCell", bundle: nil), forCellReuseIdentifier: "CollectionCell")
+        
+        tableView.reloadData()
     }
 
     
@@ -38,7 +47,6 @@ class PrivateCollectionViewController: UIViewController {
     
    
     
-    // Method that takes as input a DecodedJSONResponse object and outputs a Comic object:
     
     
 }
@@ -83,9 +91,20 @@ extension PrivateCollectionViewController: BarcodeScannerCodeDelegate,  BarcodeS
             if decodedJSON != nil {
                 let newComic = Comic.init(jsonResponse: decodedJSON!, isbn: code)
                 
-                let alertController = UIAlertController(title: "Product found!", message: "Do you want to add \(newComic.title!) to your collection?", preferredStyle: .actionSheet)
+                let alertController = UIAlertController(title: "Product found!", message: "Do you want to add \(newComic.title) to your collection?", preferredStyle: .actionSheet)
                 let addAction = UIAlertAction(title: "Add", style: .default) { (_) in
                     User.sharedInstance.addToCollection(comic: newComic)
+                    
+                    NetworkManager.upload(book: newComic, completion: { (confirmation, error) in
+                        
+                        if error == nil {
+                            print(confirmation!["success"]!)
+                            
+                        } else {
+                            print("Failed to upload book.")
+                        }
+                    })
+                    
                     
                     DispatchQueue.main.async {
                         self.tableView.reloadData()

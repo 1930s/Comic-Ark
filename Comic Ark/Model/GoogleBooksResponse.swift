@@ -9,15 +9,15 @@
 import Foundation
 import UIKit
 
-struct DecodedJSONResponse: Decodable {
+struct GoogleBooksResponse: Codable {
     let items: [Volume]
 }
 
-struct Volume: Decodable {
+struct Volume: Codable {
     let volumeInfo: VolumeInfo?
 }
 
-struct VolumeInfo: Decodable {
+struct VolumeInfo: Codable {
     let title: String?
     let authors: [String]?
     let publisher: String?
@@ -25,6 +25,6 @@ struct VolumeInfo: Decodable {
     let imageLinks: ImageSize?
 }
 
-struct ImageSize: Decodable {
+struct ImageSize: Codable {
     let thumbnail: String
 }
