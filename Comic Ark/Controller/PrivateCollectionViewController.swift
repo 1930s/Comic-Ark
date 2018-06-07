@@ -77,6 +77,16 @@ extension PrivateCollectionViewController: UITableViewDelegate, UITableViewDataS
         return 88
     }
     
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        return true
+    }
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == UITableViewCellEditingStyle.delete {
+            User.sharedInstance.collection.remove(at: indexPath.row)
+            tableView.reloadData()
+        }
+    }
 }
 
 // MARK: - BarcodeScanner delegate methods:

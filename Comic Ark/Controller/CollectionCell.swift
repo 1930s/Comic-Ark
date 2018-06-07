@@ -13,6 +13,7 @@ class CollectionCell: UITableViewCell {
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var authorsLabel: UILabel!
     @IBOutlet weak var publisherLabel: UILabel!
+    @IBOutlet var ratingButtons: [UIButton]!
     
     var comic: Comic! {
         didSet {
@@ -34,6 +35,17 @@ class CollectionCell: UITableViewCell {
                 publisherLabel.text = comicPublisher
             }
             
+            if comic.rating == 1 {
+                ratingButtons[0].isSelected = true
+            } else if comic.rating == 2 {
+                ratingButtons[0].isSelected = true
+                ratingButtons[1].isSelected = true
+            } else if comic.rating == 3 {
+                ratingButtons[0].isSelected = true
+                ratingButtons[1].isSelected = true
+                ratingButtons[2].isSelected = true
+            }
+            
 //            if let comicCover = comic.coverImage {
 //                coverView.image = comicCover
 //            }
@@ -42,12 +54,47 @@ class CollectionCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
+        
+        for button in ratingButtons {
+            button.imageView?.contentMode = .scaleAspectFit
+        }
     }
 
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
+    @IBAction func ratingPressed(_ sender: UIButton) {
+        
+        if sender.tag == 1 {
+            if sender.isSelected {
+                sender.isSelected = false
+                ratingButtons[1].isSelected = false
+                ratingButtons[2].isSelected = false
+                comic.rating = 0
+            } else {
+                sender.isSelected = true
+                comic.rating = 1
+            }
+        } else if sender.tag == 2 {
+            if sender.isSelected {
+                sender.isSelected = false
+                ratingButtons[0].isSelected = false
+                ratingButtons[2].isSelected = false
+                comic.rating = 0
+            } else {
+                sender.isSelected = true
+                ratingButtons[0].isSelected = true
+                comic.rating = 2
+            }
+        } else {
+            if sender.isSelected {
+                sender.isSelected = false
+                ratingButtons[0].isSelected = false
+                ratingButtons[1].isSelected = false
+                comic.rating = 0
+            } else {
+                sender.isSelected = true
+                ratingButtons[0].isSelected = true
+                ratingButtons[1].isSelected = true
+                comic.rating = 3
+            }
+        }
     }
-    
 }

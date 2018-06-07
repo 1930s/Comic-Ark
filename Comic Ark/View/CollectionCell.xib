@@ -28,7 +28,7 @@
                         </constraints>
                     </imageView>
                     <stackView opaque="NO" contentMode="scaleAspectFit" axis="vertical" distribution="fillEqually" alignment="top" translatesAutoresizingMaskIntoConstraints="NO" id="4fF-jP-4qL">
-                        <rect key="frame" x="90" y="11" width="218" height="66"/>
+                        <rect key="frame" x="90" y="11" width="166" height="65.5"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hmf-yt-cHi">
                                 <rect key="frame" x="0.0" y="0.0" width="50" height="22"/>
@@ -37,31 +37,68 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Lvt-J5-YBI">
-                                <rect key="frame" x="0.0" y="22" width="50" height="22"/>
+                                <rect key="frame" x="0.0" y="22" width="50" height="21.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GLI-kK-dQm">
-                                <rect key="frame" x="0.0" y="44" width="50" height="22"/>
+                                <rect key="frame" x="0.0" y="43.5" width="50" height="22"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
+                    </stackView>
+                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="HhW-eX-Izt">
+                        <rect key="frame" x="264" y="11" width="40" height="66"/>
+                        <subviews>
+                            <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zIZ-k9-15U">
+                                <rect key="frame" x="0.0" y="0.0" width="40" height="22"/>
+                                <state key="normal" image="unstar"/>
+                                <state key="selected" image="star"/>
+                                <state key="highlighted" image="star"/>
+                                <connections>
+                                    <action selector="ratingPressed:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="Vic-ax-6Ax"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LvK-MV-3t4">
+                                <rect key="frame" x="0.0" y="22" width="40" height="22"/>
+                                <state key="normal" image="unstar"/>
+                                <state key="selected" image="star"/>
+                                <state key="highlighted" image="star"/>
+                                <connections>
+                                    <action selector="ratingPressed:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="gLU-ch-Nbr"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Okd-an-Edj">
+                                <rect key="frame" x="0.0" y="44" width="40" height="22"/>
+                                <state key="normal" image="unstar"/>
+                                <state key="selected" image="star"/>
+                                <state key="highlighted" image="star"/>
+                                <connections>
+                                    <action selector="ratingPressed:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="kKZ-dz-rRS"/>
+                                </connections>
+                            </button>
+                        </subviews>
                         <constraints>
-                            <constraint firstAttribute="height" constant="66" id="72W-EI-RwU"/>
+                            <constraint firstAttribute="height" constant="66" id="GWT-CB-hjB"/>
+                            <constraint firstAttribute="width" constant="40" id="exu-09-2FY"/>
                         </constraints>
                     </stackView>
                 </subviews>
                 <constraints>
                     <constraint firstItem="wCG-mX-s83" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" id="Eh2-Pd-WLw"/>
+                    <constraint firstItem="HhW-eX-Izt" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="Ekc-ej-7Yh"/>
                     <constraint firstItem="wCG-mX-s83" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="IOC-Za-ZpD"/>
+                    <constraint firstItem="HhW-eX-Izt" firstAttribute="bottom" secondItem="H2p-sc-9uM" secondAttribute="bottomMargin" id="POO-FZ-OSV"/>
+                    <constraint firstAttribute="bottom" secondItem="4fF-jP-4qL" secondAttribute="bottom" constant="11" id="YEg-Uv-aXa"/>
                     <constraint firstItem="wCG-mX-s83" firstAttribute="bottom" secondItem="H2p-sc-9uM" secondAttribute="bottomMargin" id="aD0-IS-CIw"/>
-                    <constraint firstItem="4fF-jP-4qL" firstAttribute="leading" secondItem="wCG-mX-s83" secondAttribute="trailing" constant="8" id="cCj-iD-SZT"/>
-                    <constraint firstAttribute="bottom" secondItem="4fF-jP-4qL" secondAttribute="bottom" constant="11" id="guk-rZ-l4s"/>
-                    <constraint firstItem="4fF-jP-4qL" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="11" id="iFB-8a-YQ8"/>
-                    <constraint firstAttribute="trailing" secondItem="4fF-jP-4qL" secondAttribute="trailing" constant="12" id="mVR-ea-dhP"/>
+                    <constraint firstItem="HhW-eX-Izt" firstAttribute="leading" secondItem="4fF-jP-4qL" secondAttribute="trailing" constant="8" id="fhg-3H-HlC"/>
+                    <constraint firstItem="HhW-eX-Izt" firstAttribute="trailing" secondItem="H2p-sc-9uM" secondAttribute="trailingMargin" id="fyD-BP-5rm"/>
+                    <constraint firstItem="4fF-jP-4qL" firstAttribute="leading" secondItem="wCG-mX-s83" secondAttribute="trailing" constant="8" id="hYS-DT-8yW"/>
+                    <constraint firstItem="4fF-jP-4qL" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="11" id="jp7-sd-pEp"/>
+                    <constraint firstItem="HhW-eX-Izt" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" id="lCP-0W-sHC"/>
                     <constraint firstItem="wCG-mX-s83" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" id="zbi-IU-uyx"/>
                 </constraints>
             </tableViewCellContentView>
@@ -71,8 +108,15 @@
                 <outlet property="coverView" destination="wCG-mX-s83" id="bPy-qI-EvS"/>
                 <outlet property="publisherLabel" destination="GLI-kK-dQm" id="MPa-ha-GI4"/>
                 <outlet property="titleLabel" destination="hmf-yt-cHi" id="eWb-fP-rzy"/>
+                <outletCollection property="ratingButtons" destination="zIZ-k9-15U" collectionClass="NSMutableArray" id="wV0-0Y-n8n"/>
+                <outletCollection property="ratingButtons" destination="LvK-MV-3t4" collectionClass="NSMutableArray" id="cy1-nF-Pni"/>
+                <outletCollection property="ratingButtons" destination="Okd-an-Edj" collectionClass="NSMutableArray" id="OQ1-s3-sck"/>
             </connections>
             <point key="canvasLocation" x="33" y="53"/>
         </tableViewCell>
     </objects>
+    <resources>
+        <image name="star" width="256" height="256"/>
+        <image name="unstar" width="256" height="256"/>
+    </resources>
 </document>
