@@ -16,6 +16,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         
+        if let loadedData = UserDefaults.standard.object(forKey: "sessionId") as? String {
+            NetworkManager.sessionId = loadedData
+        }
+        
         return true
     }
 

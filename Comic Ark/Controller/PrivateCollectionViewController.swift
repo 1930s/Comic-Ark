@@ -18,7 +18,16 @@ class PrivateCollectionViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        
+        NetworkManager.downloadBooks { (comics, error) in
+            
+            if let loadedComics = comics {
+                for comic in loadedComics {
+                    User.sharedInstance.addToCollection(comic: comic)
+                }
+            } else {
+                print("Failed to download domics.")
+            }
+        }
         
         tableView.delegate = self
         tableView.dataSource = self

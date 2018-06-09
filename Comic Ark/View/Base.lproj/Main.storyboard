@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="kkN-GN-hNB">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="fOV-1g-5T4">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -113,7 +113,26 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cjK-rG-YrV" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2678" y="234"/>
+            <point key="canvasLocation" x="2777" y="233"/>
+        </scene>
+        <!--Launch View Controller-->
+        <scene sceneID="ITr-Qa-oDC">
+            <objects>
+                <viewController id="fOV-1g-5T4" customClass="LaunchViewController" customModule="Comic_Ark" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="vpH-4Y-NRd">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="uht-Oy-3zz"/>
+                    </view>
+                    <connections>
+                        <segue destination="kkN-GN-hNB" kind="show" identifier="goToLoginVC" id="5dw-ms-qOX"/>
+                        <segue destination="dxN-up-9S4" kind="show" identifier="goToMainVC" id="BvT-Pb-9ff"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="uag-ew-DSZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-2487" y="-8"/>
         </scene>
         <!--Login View Controller-->
         <scene sceneID="m8T-vb-7Hx">
@@ -150,7 +169,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SkC-sa-sLC" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-868" y="1008"/>
+            <point key="canvasLocation" x="-868" y="1334"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="4r2-h4-BmY">

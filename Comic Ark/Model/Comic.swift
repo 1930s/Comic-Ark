@@ -15,7 +15,7 @@ class Comic: Codable {
     let authors: [String]
     let publisher: String?
     let coverUrl: String?
-//    let coverImage: UIImage?
+    var coverImage: UIImage? = nil
     var rating: Int = 0
     
     
@@ -30,18 +30,27 @@ class Comic: Codable {
         self.coverUrl = decodedComic.volumeInfo?.imageLinks?.thumbnail
 //        self.coverImage = UIImage(url: URL(string: coverUrl!))
     }
-}
-
-extension UIImage {
-    convenience init?(url: URL?) {
-        guard let url = url else { return nil }
-        
-        do {
-            let data = try Data(contentsOf: url)
-            self.init(data: data)
-        } catch {
-            print("Cannot load image from url: \(url). Error: \(error)")
-            return nil
-        }
+    
+    enum CodingKeys: String, CodingKey {
+        case title
+        case isbn
+        case authors
+        case publisher
+        case coverUrl
+        case rating
     }
 }
+
+//extension UIImage {
+//    convenience init?(url: URL?) {
+//        guard let url = url else { return nil }
+//
+//        do {
+//            let data = try Data(contentsOf: url)
+//            self.init(data: data)
+//        } catch {
+//            print("Cannot load image from url: \(url). Error: \(error)")
+//            return nil
+//        }
+//    }
+//}

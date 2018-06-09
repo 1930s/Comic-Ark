@@ -128,18 +128,8 @@ class LoginViewController: UIViewController {
                 if let loginData = data {
                     print("Session ID: \(loginData.sessionId)")
                     print("Hardware ID: \(UIDevice.current.identifierForVendor!.uuidString)")
-                    User.sharedInstance.sessionId = loginData.sessionId
-                    
-                    NetworkManager.downloadBooks { (comics, error) in
-                        
-                        if let loadedComics = comics {
-                            for comic in loadedComics {
-                                User.sharedInstance.addToCollection(comic: comic)
-                            }
-                        } else {
-                            print("Failed to download domics.")
-                        }
-                    }
+
+                    NetworkManager.sessionId = loginData.sessionId
                     
                     self.performSegue(withIdentifier: "goToMainVCFromLogin", sender: self)
                     

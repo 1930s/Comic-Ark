@@ -16,10 +16,25 @@ enum NetworkManagerRequest: String {
     case login = "/login"
     case register = "/register"
     case book = "/book"
+    case loggedInState = "/isLoggedIn"
 }
 
 class NetworkManager {
     private static let baseUrl = "http://138.197.187.213/comicArk"
+    
+    static var sessionId = String() {
+        didSet {
+            UserDefaults.standard.setValue(sessionId, forKey: "sessionId")
+        }
+    }
+    
+    static func checkLoggedInState(completion: @escaping(_ data: [String: Bool]?, _ error: Error?) -> Void) {
+        let urlString = baseUrl + NetworkManagerRequest.loggedInState.rawValue
+        let headers = ["hardwareId": UIDevice.current.identifierForVendor!.uuidString,
+                       "sessionId": NetworkManager.sessionId]
+        
+        sendRequest(to: urlString, method: .get, parameters: nil, headers: headers, completion: completion)
+    }
     
     static func login(email: String, password:  String, completion: @escaping (_ data: AuthentificationResponse?, _ error: Error?) -> Void) {
         let urlString = baseUrl + NetworkManagerRequest.login.rawValue
@@ -43,7 +58,8 @@ class NetworkManager {
     
     static func downloadBooks(completion: @escaping(_ data: [Comic]?, _ error: Error?) -> Void) {
         let urlString = baseUrl + NetworkManagerRequest.book.rawValue
-        let headers = ["hardwareId": UIDevice.current.identifierForVendor!.uuidString, "sessionId": User.sharedInstance.sessionId]
+        let headers = ["hardwareId": UIDevice.current.identifierForVendor!.uuidString,
+                       "sessionId": NetworkManager.sessionId]
         
         sendRequest(to: urlString, method: .get, parameters: nil, headers: headers, completion: completion)
     }
@@ -53,7 +69,7 @@ class NetworkManager {
         
         let parameters = ["book": ["title": book.title, "isbn": book.isbn, "authors": [book.authors], "publisher": book.publisher ?? " ", "coverUrl": book.coverUrl ?? " ", "rating": book.rating]]
         
-        let headers = ["hardwareId": UIDevice.current.identifierForVendor!.uuidString, "sessionId": User.sharedInstance.sessionId]
+        let headers = ["hardwareId": UIDevice.current.identifierForVendor!.uuidString, "sessionId": NetworkManager.sessionId]
 
         sendRequest(to: urlString, method: .post, parameters: parameters, headers: headers, completion: completion)
     }

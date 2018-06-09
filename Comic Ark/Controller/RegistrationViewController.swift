@@ -142,7 +142,10 @@ class RegistrationViewController: UIViewController {
                 
                 if let registrationData = data {
                     print("Session ID: \(registrationData.sessionId)")
-                    User.sharedInstance.sessionId = registrationData.sessionId
+
+                    NetworkManager.sessionId = registrationData.sessionId
+                    
+                    self.performSegue(withIdentifier: "goToMainVCFromRegistration", sender: self)
                 } else {
                     print("Registration failed.")
                 }

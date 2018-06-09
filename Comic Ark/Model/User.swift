@@ -16,8 +16,6 @@ class User {
     
     var isPrivate: Bool = false
     
-    var sessionId = String()
-    
     static let sharedInstance: User = {
         let instance = User()
         return instance

@@ -44,6 +44,10 @@ class CollectionCell: UITableViewCell {
                 ratingButtons[0].isSelected = true
                 ratingButtons[1].isSelected = true
                 ratingButtons[2].isSelected = true
+            } else {
+                for button in ratingButtons {
+                    button.isSelected = false
+                }
             }
             
 //            if let comicCover = comic.coverImage {
