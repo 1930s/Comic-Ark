@@ -125,21 +125,44 @@ class LoginViewController: UIViewController {
         if emailField.text!.isValidEmail() {
             
             NetworkManager.login(email: emailField.text!, password: passwordField.text!) { (data, error) in
+                
                 if let loginData = data {
                     print("Session ID: \(loginData.sessionId)")
                     print("Hardware ID: \(UIDevice.current.identifierForVendor!.uuidString)")
 
                     NetworkManager.sessionId = loginData.sessionId
                     
+                    NetworkManager.downloadBooks { (comics, error) in
+                        
+                        if let loadedComics = comics {
+                            for comic in loadedComics {
+                                User.sharedInstance.addToCollection(comic: comic)
+                            }
+                        } else {
+                            print("Failed to download comics.")
+                        }
+                    }
+                    
                     self.performSegue(withIdentifier: "goToMainVCFromLogin", sender: self)
                     
                 } else {
-                    print("Login failed.")
+                    if let connectionError = error {
+                        if connectionError.localizedDescription == "The Internet connection appears to be offline." {
+                            let alert = UIAlertController(title: "No internet connection", message: "Make sure that your device is connected to the internet.", preferredStyle: .alert)
+                            let action = UIAlertAction(title: "OK", style: .cancel, handler: nil)
+                            alert.addAction(action)
+                            self.present(alert, animated: true)
+                            print("Network connection problem.")
+                        }
+                    } else {
+                        let alert = UIAlertController(title: "Authentification failed", message: "Invalid email or password. Please try again.", preferredStyle: .alert)
+                        let action = UIAlertAction(title: "OK", style: .cancel, handler: nil)
+                        alert.addAction(action)
+                        self.present(alert, animated: true)
+                        print("Authentification failed.")
+                    }
                 }
             }
-            
-            
-            
             
         } else {
             

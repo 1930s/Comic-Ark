@@ -100,5 +100,18 @@ class CollectionCell: UITableViewCell {
                 comic.rating = 3
             }
         }
+        
+        NetworkManager.update(book: comic) { (response, error) in
+            
+            if error == nil {
+                if response!["success"] == true {
+                    print("Book has been successfully updated.")
+                } else {
+                    print("Failed to update book.")
+                }
+            } else {
+                print("Failed to update book.")
+            }
+        }
     }
 }

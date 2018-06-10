@@ -28,6 +28,38 @@ class NetworkManager {
         }
     }
     
+    private static func sendRequest<T: Codable>(
+        to urlString : String,
+        method : HTTPMethod,
+        parameters : [String: Any]?,
+        headers : [String: String]?,
+        completion : @escaping (_ data : T?, _ error : Error?) -> Void) {
+        
+        Alamofire.request(urlString, method: method, parameters: parameters, encoding: JSONEncoding.default, headers: headers).responseData { (response) in
+            
+            let statusCode = response.response?.statusCode
+            
+            if statusCode == 200 {
+                print("200")
+                
+                let decoder = JSONDecoder()
+                
+                do {
+                    if let decodedJSON = try decoder.decode(T?.self, from: response.data!) {
+                        completion(decodedJSON, nil)
+                    }
+                }
+                    
+                catch {
+                    print("Failed to decode JSON.")
+                    completion(nil, nil)
+                }
+            } else {
+                completion(nil, response.error)
+            }
+        }
+    }
+    
     static func checkLoggedInState(completion: @escaping(_ data: [String: Bool]?, _ error: Error?) -> Void) {
         let urlString = baseUrl + NetworkManagerRequest.loggedInState.rawValue
         let headers = ["hardwareId": UIDevice.current.identifierForVendor!.uuidString,
@@ -74,37 +106,17 @@ class NetworkManager {
         sendRequest(to: urlString, method: .post, parameters: parameters, headers: headers, completion: completion)
     }
     
-    
-    private static func sendRequest<T: Codable>(
-        to urlString : String,
-        method : HTTPMethod,
-        parameters : [String: Any]?,
-        headers : [String: String]?,
-        completion : @escaping (_ data : T?, _ error : Error?) -> Void) {
-
-        Alamofire.request(urlString, method: method, parameters: parameters, encoding: JSONEncoding.default, headers: headers).responseData { (response) in
-            let statusCode = response.response?.statusCode
-
-            if statusCode == 200 {
-                print("200")
-                
-                let decoder = JSONDecoder()
-                
-                do {
-                    if let decodedJSON = try decoder.decode(T?.self, from: response.data!) {
-                        completion(decodedJSON, nil)
-                    }
-                }
-                
-                catch {
-                    print("Failed to decode JSON.")
-                    completion(nil, nil)
-                }
-            } else {
-                completion(nil, response.error)
-            }
-        }
+    static func update(book: Comic, completion: @escaping(_ data: [String: Bool]?, _ error: Error?) -> Void) {
+        let urlString = baseUrl + NetworkManagerRequest.book.rawValue
+        
+        let parameters = ["book": ["title": book.title, "isbn": book.isbn, "authors": [book.authors], "publisher": book.publisher ?? " ", "coverUrl": book.coverUrl ?? " ", "rating": book.rating]]
+        
+        let headers = ["hardwareId": UIDevice.current.identifierForVendor!.uuidString, "sessionId": NetworkManager.sessionId]
+        
+        sendRequest(to: urlString, method: .put, parameters: parameters, headers: headers, completion: completion)
     }
+    
+    
     
 
     

@@ -18,8 +18,6 @@ class Comic: Codable {
     var coverImage: UIImage? = nil
     var rating: Int = 0
     
-    
-    
     init(jsonResponse: GoogleBooksResponse, isbn: String) {
         let decodedComic = jsonResponse.items[0]
         

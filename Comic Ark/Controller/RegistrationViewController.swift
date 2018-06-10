@@ -147,11 +147,17 @@ class RegistrationViewController: UIViewController {
                     
                     self.performSegue(withIdentifier: "goToMainVCFromRegistration", sender: self)
                 } else {
-                    print("Registration failed.")
+                    if let connectionError = error {
+                        if connectionError.localizedDescription == "The Internet connection appears to be offline." {
+                            let alert = UIAlertController(title: "No internet connection", message: "Make sure that your device is connected to the internet.", preferredStyle: .alert)
+                            let action = UIAlertAction(title: "OK", style: .cancel, handler: nil)
+                            alert.addAction(action)
+                            self.present(alert, animated: true)
+                            print("Network connection problem.")
+                        }
+                    }
                 }
             }
-            
-            
             
         } else {
             
