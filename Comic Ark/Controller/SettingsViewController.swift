@@ -9,16 +9,42 @@
 import UIKit
 
 class SettingsViewController: UITableViewController {
-
+    @IBOutlet weak var usernameField: UITextField!
+    @IBOutlet weak var doneButton: UIButton!
+    @IBOutlet weak var stackView: UIStackView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        usernameField.delegate = self
+        doneButton.isHidden = true
 
-        // Do any additional setup after loading the view.
+        
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    @IBAction func switchToggled(_ sender: UISwitch) {
+        
     }
+    
+    @IBAction func doneButtonPressed(_ sender: UIButton) {
+        view.endEditing(true)
+    }
+    
+    @IBAction func logOutButtonPressed(_ sender: UIButton) {
+        
+    }
+    
+    @IBAction func deleteButtonPressed(_ sender: UIButton) {
+        
+    }
+}
 
+extension SettingsViewController: UITextFieldDelegate {
+    
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        doneButton.isHidden = false
+    }
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        doneButton.isHidden = true
+    }
 }
