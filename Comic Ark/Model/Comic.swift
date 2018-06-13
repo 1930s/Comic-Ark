@@ -26,7 +26,10 @@ class Comic: Codable {
         self.authors = decodedComic.volumeInfo?.authors ?? ["Unknown"]
         self.publisher = decodedComic.volumeInfo?.publisher
         self.coverUrl = decodedComic.volumeInfo?.imageLinks?.thumbnail
-//        self.coverImage = UIImage(url: URL(string: coverUrl!))
+        
+        if coverUrl != nil {
+            downloadImage()
+        }
     }
     
     enum CodingKeys: String, CodingKey {
@@ -37,18 +40,15 @@ class Comic: Codable {
         case coverUrl
         case rating
     }
+    
+    private func downloadImage() {
+        
+        URLSession.shared.dataTask(with: URL(string: coverUrl!)!, completionHandler: { (data, response, error) in
+            if let httpResponse = response as? HTTPURLResponse {
+                if httpResponse.statusCode == 200 && error == nil && data != nil {
+                    self.coverImage = UIImage(data: data!)
+                }
+            }
+        }).resume()
+    }
 }
-
-//extension UIImage {
-//    convenience init?(url: URL?) {
-//        guard let url = url else { return nil }
-//
-//        do {
-//            let data = try Data(contentsOf: url)
-//            self.init(data: data)
-//        } catch {
-//            print("Cannot load image from url: \(url). Error: \(error)")
-//            return nil
-//        }
-//    }
-//}

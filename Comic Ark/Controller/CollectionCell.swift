@@ -50,9 +50,11 @@ class CollectionCell: UITableViewCell {
                 }
             }
             
-//            if let comicCover = comic.coverImage {
-//                coverView.image = comicCover
-//            }
+            if let comicCover = comic.coverImage {
+                coverView.image = comicCover
+            } else {
+                coverView.image = #imageLiteral(resourceName: "no-image")
+            }
         }
     }
     
