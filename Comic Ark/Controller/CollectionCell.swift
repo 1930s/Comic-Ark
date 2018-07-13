@@ -35,20 +35,23 @@ class CollectionCell: UITableViewCell {
                 publisherLabel.text = comicPublisher
             }
             
-            if comic.rating == 1 {
-                ratingButtons[0].isSelected = true
-            } else if comic.rating == 2 {
-                ratingButtons[0].isSelected = true
-                ratingButtons[1].isSelected = true
-            } else if comic.rating == 3 {
-                ratingButtons[0].isSelected = true
-                ratingButtons[1].isSelected = true
-                ratingButtons[2].isSelected = true
-            } else {
-                for button in ratingButtons {
-                    button.isSelected = false
+                if comic.rating == 1 {
+                    ratingButtons[0].isSelected = true
+                    ratingButtons[1].isSelected = false
+                    ratingButtons[2].isSelected = false
+                } else if comic.rating == 2 {
+                    ratingButtons[0].isSelected = true
+                    ratingButtons[1].isSelected = true
+                    ratingButtons[2].isSelected = false
+                } else if comic.rating == 3 {
+                    ratingButtons[0].isSelected = true
+                    ratingButtons[1].isSelected = true
+                    ratingButtons[2].isSelected = true
+                } else {
+                    for button in ratingButtons {
+                        button.isSelected = false
+                    }
                 }
-            }
             
             if let comicCover = comic.coverImage {
                 coverView.image = comicCover
@@ -103,15 +106,13 @@ class CollectionCell: UITableViewCell {
             }
         }
         
-        NetworkManager.update(book: comic) { (response, error) in
-            
+        NetworkManager.rate(book: comic) { (response, error) in
+
             if error == nil {
-                if response!["success"] == true {
                     print("Book has been successfully updated.")
-                } else {
-                    print("Failed to update book.")
-                }
+             
             } else {
+                print(error!)
                 print("Failed to update book.")
             }
         }

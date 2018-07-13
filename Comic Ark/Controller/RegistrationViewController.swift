@@ -9,7 +9,8 @@
 import UIKit
 
 class RegistrationViewController: UIViewController {
-    let appLogo = UIImageView()
+
+    let usernameField = UITextField()
     let emailField = UITextField()
     let passwordField = UITextField()
     let passwordConfirmationField = UITextField()
@@ -28,9 +29,12 @@ class RegistrationViewController: UIViewController {
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(didTapOnView))
         view.addGestureRecognizer(tapGesture)
         
-        appLogo.image = UIImage()
-        appLogo.contentMode = .scaleAspectFit
-        view.addSubview(appLogo)
+        usernameField.placeholder = "Your username."
+        usernameField.textAlignment = .left
+        usernameField.keyboardType = .default
+        usernameField.borderStyle = .roundedRect
+        usernameField.delegate = self
+        view.addSubview(usernameField)
         
         emailField.placeholder = "Your email address."
         emailField.textAlignment = .left
@@ -83,13 +87,10 @@ class RegistrationViewController: UIViewController {
         
         if shouldUpdateLayouts == true {
             
-            appLogo.isHidden = false
             registrationButton.isHidden = false
             loginView.isHidden = false
             
             if UIDevice.current.orientation == UIDeviceOrientation.portrait {
-                
-                appLogo.frame = CGRect(x: view.frame.width / 2 - 50, y: 40, width: 100, height: 100)
                 
                 loginView.frame.size = CGSize(width: view.frame.width - 30, height: 25)
                 loginView.frame.origin.x = view.frame.width / 2 - loginView.frame.width / 2
@@ -108,6 +109,10 @@ class RegistrationViewController: UIViewController {
                 emailField.frame.size = CGSize(width: view.frame.width - 70, height: 35)
                 emailField.frame.origin.x = view.frame.width / 2 - emailField.frame.width / 2
                 emailField.frame.origin.y = passwordField.frame.minY - 50
+                
+                usernameField.frame.size = CGSize(width: view.frame.width - 70, height: 35)
+                usernameField.frame.origin.x = view.frame.width / 2 - usernameField.frame.width / 2
+                usernameField.frame.origin.y = emailField.frame.minY - 50
                 
             } else {
                 
@@ -129,21 +134,36 @@ class RegistrationViewController: UIViewController {
                 emailField.frame.origin.x = view.frame.width / 2 - emailField.frame.width / 2
                 emailField.frame.origin.y = passwordField.frame.minY - 50
                 
-                appLogo.frame = CGRect(x: emailField.frame.minX, y: 20, width: 50, height: 50)
+                usernameField.frame.size = CGSize(width: view.frame.width - 100, height: 35)
+                usernameField.frame.origin.x = view.frame.width / 2 - usernameField.frame.width / 2
+                usernameField.frame.origin.y = emailField.frame.minY - 50
             }
         }
     }
     
     @objc func registerButtonPressed() {
         
-        if emailField.text!.isValidEmail() && (passwordField.text?.count)! > 4 && passwordConfirmationField.text! == passwordField.text! {
+        if emailField.text!.isValidEmail() && (passwordField.text?.count)! > 4 && passwordConfirmationField.text! == passwordField.text! && (usernameField.text?.isEmpty)! == false {
             
-            NetworkManager.register(email: emailField.text!, password: passwordField.text!, repassword: passwordConfirmationField.text!) { (data, error) in
+            NetworkManager.register(email: emailField.text!, password: passwordField.text!, repassword: passwordConfirmationField.text!, username: usernameField.text!) { (data, error) in
                 
                 if let registrationData = data {
                     print("Session ID: \(registrationData.sessionId)")
 
                     NetworkManager.sessionId = registrationData.sessionId
+                    
+                    User.sharedInstance.name = self.usernameField.text!
+                    User.sharedInstance.isPublic = true
+                    
+                    NetworkManager.downloadProfiles { (users, error) in
+                        
+                        if error == nil {
+                            Users.sharedInstance.publicUsers.removeAll()
+                            Users.sharedInstance.publicUsers.append(contentsOf: users!)
+                        } else {
+                            print("Failed to download users.")
+                        }
+                    }
                     
                     self.performSegue(withIdentifier: "goToMainVCFromRegistration", sender: self)
                 } else {
@@ -216,11 +236,8 @@ class RegistrationViewController: UIViewController {
         
         if UIDevice.current.orientation == UIDeviceOrientation.portrait {
             
-            appLogo.isHidden = false
             registrationButton.isHidden = true
             loginView.isHidden = true
-            
-            appLogo.frame = CGRect(x: view.frame.width / 2 - 50, y: 40, width: 100, height: 100)
             
             passwordConfirmationField.frame.size = CGSize(width: view.frame.width - 70, height: 35)
             passwordConfirmationField.frame.origin.x = view.frame.width / 2 - passwordConfirmationField.frame.width / 2
@@ -234,9 +251,12 @@ class RegistrationViewController: UIViewController {
             emailField.frame.origin.x = view.frame.width / 2 - emailField.frame.width / 2
             emailField.frame.origin.y = passwordField.frame.minY - 50
             
+            usernameField.frame.size = CGSize(width: view.frame.width - 70, height: 35)
+            usernameField.frame.origin.x = view.frame.width / 2 - usernameField.frame.width / 2
+            usernameField.frame.origin.y = emailField.frame.minY - 50
+            
         } else {
             
-            appLogo.isHidden = true
             registrationButton.isHidden = true
             loginView.isHidden = true
             
@@ -251,6 +271,10 @@ class RegistrationViewController: UIViewController {
             emailField.frame.size = CGSize(width: view.frame.width - 100, height: 35)
             emailField.frame.origin.x = view.frame.width / 2 - emailField.frame.width / 2
             emailField.frame.origin.y = passwordField.frame.minY - 50
+            
+            usernameField.frame.size = CGSize(width: view.frame.width - 100, height: 35)
+            usernameField.frame.origin.x = view.frame.width / 2 - usernameField.frame.width / 2
+            usernameField.frame.origin.y = emailField.frame.minY - 50
         }
     }
 }

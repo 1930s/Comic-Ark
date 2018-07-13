@@ -10,6 +10,7 @@ import Foundation
 import UIKit
 
 class Comic: Codable {
+    var id: Int = 0
     let title: String
     let isbn: String
     let authors: [String]
@@ -29,10 +30,11 @@ class Comic: Codable {
         
         if coverUrl != nil {
             downloadImage()
-        }
+        } 
     }
     
     enum CodingKeys: String, CodingKey {
+        case id
         case title
         case isbn
         case authors
@@ -41,7 +43,7 @@ class Comic: Codable {
         case rating
     }
     
-    private func downloadImage() {
+    func downloadImage() {
         
         URLSession.shared.dataTask(with: URL(string: coverUrl!)!, completionHandler: { (data, response, error) in
             if let httpResponse = response as? HTTPURLResponse {

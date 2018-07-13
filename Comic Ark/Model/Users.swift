@@ -9,5 +9,22 @@
 import Foundation
 
 class Users {
-    var users = [User]()
+    var publicUsers = [PublicProfile]()
+    var filteredUsers = [PublicProfile]()
+    var selectedUserCollection = [Comic]()
+    
+    static let sharedInstance: Users = {
+        let instance = Users()
+        return instance
+    }()
+    
+    private init() {}
+    
+    func filterContent(for searchText: String) {
+        filteredUsers = publicUsers.filter({ (profile: PublicProfile) -> Bool in
+            return profile.name.lowercased().contains(searchText.lowercased())
+        })
+    }
 }
+
+

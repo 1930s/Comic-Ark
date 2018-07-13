@@ -21,10 +21,44 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </tableView>
                     <navigationItem key="navigationItem" title="Collectors" id="b7a-FC-vvS"/>
+                    <connections>
+                        <outlet property="tableView" destination="iBt-En-4hs" id="uud-nP-oU6"/>
+                        <segue destination="UbX-OL-J8H" kind="show" identifier="goToPublicCollectionVC" id="meB-Ut-7cH"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6Ae-fY-bFQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1852" y="897.30134932533736"/>
+        </scene>
+        <!--Public Collection View Controller-->
+        <scene sceneID="Gdn-dv-uZf">
+            <objects>
+                <viewController id="UbX-OL-J8H" customClass="PublicCollectionViewController" customModule="Comic_Ark" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="ho2-Fe-ban">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="orQ-SC-csU">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="orQ-SC-csU" firstAttribute="trailing" secondItem="eqJ-gJ-nm9" secondAttribute="trailing" id="6PC-rh-Khh"/>
+                            <constraint firstItem="orQ-SC-csU" firstAttribute="leading" secondItem="eqJ-gJ-nm9" secondAttribute="leading" id="rTb-BB-8Nd"/>
+                            <constraint firstAttribute="bottom" secondItem="orQ-SC-csU" secondAttribute="bottom" id="sW3-Q9-eMR"/>
+                            <constraint firstItem="orQ-SC-csU" firstAttribute="top" secondItem="ho2-Fe-ban" secondAttribute="top" id="zS9-Rb-pVr"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="eqJ-gJ-nm9"/>
+                    </view>
+                    <connections>
+                        <outlet property="tableView" destination="orQ-SC-csU" id="w7P-eH-thE"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Gsq-8G-zed" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2781.5999999999999" y="900.89955022488766"/>
         </scene>
         <!--My collection-->
         <scene sceneID="WRu-10-2Xh">
@@ -223,6 +257,7 @@
                     </tableView>
                     <connections>
                         <outlet property="doneButton" destination="BJ5-MV-wn4" id="Vw0-y1-UN9"/>
+                        <outlet property="isPublicSwitch" destination="AB9-2c-PQs" id="EMR-bn-JWp"/>
                         <outlet property="stackView" destination="gY3-ZY-6kY" id="OJh-L8-TtO"/>
                         <outlet property="usernameField" destination="el7-so-USB" id="p5U-2u-TKN"/>
                     </connections>
@@ -238,6 +273,7 @@
                     <view key="view" contentMode="scaleToFill" id="vpH-4Y-NRd">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="uht-Oy-3zz"/>
                     </view>
                     <connections>

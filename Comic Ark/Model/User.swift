@@ -9,12 +9,19 @@
 import Foundation
 
 class User {
-    private var name = String()
-    private var password = String()
-    private var email = String()
+    var name = String() {
+        didSet {
+            UserDefaults.standard.setValue(name, forKey: "username")
+        }
+    }
     var collection = [Comic]()
     
-    var isPrivate: Bool = false
+    var isPublic: Bool = true {
+        didSet {
+            UserDefaults.standard.setValue(isPublic, forKey: "isPublic")
+        }
+    }
+    
     
     static let sharedInstance: User = {
         let instance = User()
@@ -29,5 +36,16 @@ class User {
             collection.insert(comic, at: 0)
         }   
     }
+    
+    func update() {
+        if let loadedUsername = UserDefaults.standard.object(forKey: "username") as? String {
+            name = loadedUsername
+        }
+        
+        if let loadedIsPublic = UserDefaults.standard.object(forKey: "isPublic") as? Bool {
+            isPublic = loadedIsPublic
+        }
+    }
+    
     private init() {}
 }

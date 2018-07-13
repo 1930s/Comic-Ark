@@ -18,7 +18,7 @@ class PrivateCollectionViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        
+        tableView.register(UINib(nibName: "CollectionCell", bundle: nil), forCellReuseIdentifier: "CollectionCell")
         
         tableView.delegate = self
         tableView.dataSource = self
@@ -33,8 +33,6 @@ class PrivateCollectionViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        
-        tableView.register(UINib(nibName: "CollectionCell", bundle: nil), forCellReuseIdentifier: "CollectionCell")
         
         tableView.reloadData()
     }
@@ -83,8 +81,18 @@ extension PrivateCollectionViewController: UITableViewDelegate, UITableViewDataS
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == UITableViewCellEditingStyle.delete {
-            User.sharedInstance.collection.remove(at: indexPath.row)
-            tableView.reloadData()
+            
+            let bookToDelete = User.sharedInstance.collection[indexPath.row]
+            
+            NetworkManager.delete(book: bookToDelete) { (confirmation, error) in
+                if error == nil, let deleteConfirmation = confirmation {
+                    print("Book has been deleted: \(String(describing: deleteConfirmation["success"]))")
+                    User.sharedInstance.collection.remove(at: indexPath.row)
+                    tableView.reloadData()
+                } else {
+                    print("Failed to delete book.")
+                }
+            }
         }
     }
 }
@@ -106,10 +114,13 @@ extension PrivateCollectionViewController: BarcodeScannerCodeDelegate,  BarcodeS
                     User.sharedInstance.addToCollection(comic: newComic)
                     
                     NetworkManager.upload(book: newComic, completion: { (confirmation, error) in
-                        
-                        if error == nil {
-                            print(confirmation!["success"]!)
+                        if error == nil, let uploadConfirmation = confirmation {
+                            print(uploadConfirmation.bookId)
+                            print(uploadConfirmation.success)
                             
+                            newComic.id = uploadConfirmation.bookId
+                            
+                            print("Book has been successfully uploaded.")
                         } else {
                             print("Failed to upload book.")
                         }
@@ -147,6 +158,7 @@ extension PrivateCollectionViewController: BarcodeScannerCodeDelegate,  BarcodeS
     }
     
     func scannerDidDismiss(_ controller: BarcodeScannerViewController) {
+        
         controller.dismiss(animated: true) {
             controller.reset(animated: true)
         }

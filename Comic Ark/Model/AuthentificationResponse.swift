@@ -10,6 +10,10 @@ import Foundation
 
 struct AuthentificationResponse: Codable {
     let sessionId: String
+    let user: UserResponse
 }
 
-
+struct UserResponse: Codable {
+    let isPublic: Bool
+    let name: String
+}

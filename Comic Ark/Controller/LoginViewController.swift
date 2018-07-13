@@ -131,15 +131,26 @@ class LoginViewController: UIViewController {
                     print("Hardware ID: \(UIDevice.current.identifierForVendor!.uuidString)")
 
                     NetworkManager.sessionId = loginData.sessionId
+                    User.sharedInstance.name = loginData.user.name
+                    User.sharedInstance.isPublic = loginData.user.isPublic
                     
-                    NetworkManager.downloadBooks { (comics, error) in
-                        
+                    NetworkManager.downloadPrivateCollection { (comics, error) in
                         if let loadedComics = comics {
                             for comic in loadedComics {
+                                comic.downloadImage()
                                 User.sharedInstance.addToCollection(comic: comic)
                             }
                         } else {
                             print("Failed to download comics.")
+                        }
+                    }
+                    
+                    NetworkManager.downloadProfiles { (users, error) in
+                        if error == nil {
+                            Users.sharedInstance.publicUsers.removeAll()
+                            Users.sharedInstance.publicUsers.append(contentsOf: users!)
+                        } else {
+                            print("Failed to download users.")
                         }
                     }
                     
