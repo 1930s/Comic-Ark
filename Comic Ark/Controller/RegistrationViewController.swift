@@ -10,10 +10,10 @@ import UIKit
 
 class RegistrationViewController: UIViewController {
 
-    let usernameField = UITextField()
-    let emailField = UITextField()
-    let passwordField = UITextField()
-    let passwordConfirmationField = UITextField()
+    let usernameTextField = UITextField()
+    let emailTextField = UITextField()
+    let passwordTextField = UITextField()
+    let passwordConfirmationTextField = UITextField()
     let registrationButton = UIButton()
     let loginView = UITextView()
     
@@ -29,33 +29,33 @@ class RegistrationViewController: UIViewController {
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(didTapOnView))
         view.addGestureRecognizer(tapGesture)
         
-        usernameField.placeholder = "Your username."
-        usernameField.textAlignment = .left
-        usernameField.keyboardType = .default
-        usernameField.borderStyle = .roundedRect
-        usernameField.delegate = self
-        view.addSubview(usernameField)
+        usernameTextField.placeholder = "Your username."
+        usernameTextField.textAlignment = .left
+        usernameTextField.keyboardType = .default
+        usernameTextField.borderStyle = .roundedRect
+        usernameTextField.delegate = self
+        view.addSubview(usernameTextField)
         
-        emailField.placeholder = "Your email address."
-        emailField.textAlignment = .left
-        emailField.keyboardType = .emailAddress
-        emailField.borderStyle = .roundedRect
-        emailField.delegate = self
-        view.addSubview(emailField)
+        emailTextField.placeholder = "Your email address."
+        emailTextField.textAlignment = .left
+        emailTextField.keyboardType = .emailAddress
+        emailTextField.borderStyle = .roundedRect
+        emailTextField.delegate = self
+        view.addSubview(emailTextField)
         
-        passwordField.placeholder = "Your password."
-        passwordField.textAlignment = .left
-        passwordField.isSecureTextEntry = true
-        passwordField.borderStyle = .roundedRect
-        passwordField.delegate = self
-        view.addSubview(passwordField)
+        passwordTextField.placeholder = "Your password."
+        passwordTextField.textAlignment = .left
+        passwordTextField.isSecureTextEntry = true
+        passwordTextField.borderStyle = .roundedRect
+        passwordTextField.delegate = self
+        view.addSubview(passwordTextField)
         
-        passwordConfirmationField.placeholder = "Re-enter your password."
-        passwordConfirmationField.textAlignment = .left
-        passwordConfirmationField.isSecureTextEntry = true
-        passwordConfirmationField.borderStyle = .roundedRect
-        passwordConfirmationField.delegate = self
-        view.addSubview(passwordConfirmationField)
+        passwordConfirmationTextField.placeholder = "Re-enter your password."
+        passwordConfirmationTextField.textAlignment = .left
+        passwordConfirmationTextField.isSecureTextEntry = true
+        passwordConfirmationTextField.borderStyle = .roundedRect
+        passwordConfirmationTextField.delegate = self
+        view.addSubview(passwordConfirmationTextField)
         
         registrationButton.setTitle("Register", for: .normal)
         registrationButton.backgroundColor = UIColor.red
@@ -84,75 +84,71 @@ class RegistrationViewController: UIViewController {
     }
     
     override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
         
         if shouldUpdateLayouts == true {
-            
             registrationButton.isHidden = false
             loginView.isHidden = false
             
             if UIDevice.current.orientation == UIDeviceOrientation.portrait {
-                
                 loginView.frame.size = CGSize(width: view.frame.width - 30, height: 25)
                 loginView.frame.origin.x = view.frame.width / 2 - loginView.frame.width / 2
                 loginView.frame.origin.y = view.frame.maxY - 50
                 
                 registrationButton.frame = CGRect(x: view.frame.width / 2 - 100, y: loginView.frame.minY - 30, width: 200, height: 30)
                 
-                passwordConfirmationField.frame.size = CGSize(width: view.frame.width - 70, height: 35)
-                passwordConfirmationField.frame.origin.x = view.frame.width / 2 - passwordConfirmationField.frame.width / 2
-                passwordConfirmationField.frame.origin.y = registrationButton.frame.minY - 50
+                passwordConfirmationTextField.frame.size = CGSize(width: view.frame.width - 70, height: 35)
+                passwordConfirmationTextField.frame.origin.x = view.frame.width / 2 - passwordConfirmationTextField.frame.width / 2
+                passwordConfirmationTextField.frame.origin.y = registrationButton.frame.minY - 50
                 
-                passwordField.frame.size = CGSize(width: view.frame.width - 70, height: 35)
-                passwordField.frame.origin.x = view.frame.width / 2 - passwordField.frame.width / 2
-                passwordField.frame.origin.y = passwordConfirmationField.frame.minY - 50
+                passwordTextField.frame.size = CGSize(width: view.frame.width - 70, height: 35)
+                passwordTextField.frame.origin.x = view.frame.width / 2 - passwordTextField.frame.width / 2
+                passwordTextField.frame.origin.y = passwordConfirmationTextField.frame.minY - 50
                 
-                emailField.frame.size = CGSize(width: view.frame.width - 70, height: 35)
-                emailField.frame.origin.x = view.frame.width / 2 - emailField.frame.width / 2
-                emailField.frame.origin.y = passwordField.frame.minY - 50
+                emailTextField.frame.size = CGSize(width: view.frame.width - 70, height: 35)
+                emailTextField.frame.origin.x = view.frame.width / 2 - emailTextField.frame.width / 2
+                emailTextField.frame.origin.y = passwordTextField.frame.minY - 50
                 
-                usernameField.frame.size = CGSize(width: view.frame.width - 70, height: 35)
-                usernameField.frame.origin.x = view.frame.width / 2 - usernameField.frame.width / 2
-                usernameField.frame.origin.y = emailField.frame.minY - 50
-                
+                usernameTextField.frame.size = CGSize(width: view.frame.width - 70, height: 35)
+                usernameTextField.frame.origin.x = view.frame.width / 2 - usernameTextField.frame.width / 2
+                usernameTextField.frame.origin.y = emailTextField.frame.minY - 50
             } else {
-                
                 loginView.frame.size = CGSize(width: view.frame.width - 30, height: 25)
                 loginView.frame.origin.x = view.frame.width / 2 - loginView.frame.width / 2
                 loginView.frame.origin.y = view.frame.maxY - 40
                 
                 registrationButton.frame = CGRect(x: view.frame.width / 2 - 100, y: loginView.frame.minY - 30, width: 200, height: 30)
                 
-                passwordConfirmationField.frame.size = CGSize(width: view.frame.width - 100, height: 35)
-                passwordConfirmationField.frame.origin.x = view.frame.width / 2 - passwordConfirmationField.frame.width / 2
-                passwordConfirmationField.frame.origin.y = registrationButton.frame.minY - 50
+                passwordConfirmationTextField.frame.size = CGSize(width: view.frame.width - 100, height: 35)
+                passwordConfirmationTextField.frame.origin.x = view.frame.width / 2 - passwordConfirmationTextField.frame.width / 2
+                passwordConfirmationTextField.frame.origin.y = registrationButton.frame.minY - 50
                 
-                passwordField.frame.size = CGSize(width: view.frame.width - 100, height: 35)
-                passwordField.frame.origin.x = view.frame.width / 2 - passwordField.frame.width / 2
-                passwordField.frame.origin.y = passwordConfirmationField.frame.minY - 50
+                passwordTextField.frame.size = CGSize(width: view.frame.width - 100, height: 35)
+                passwordTextField.frame.origin.x = view.frame.width / 2 - passwordTextField.frame.width / 2
+                passwordTextField.frame.origin.y = passwordConfirmationTextField.frame.minY - 50
                 
-                emailField.frame.size = CGSize(width: view.frame.width - 100, height: 35)
-                emailField.frame.origin.x = view.frame.width / 2 - emailField.frame.width / 2
-                emailField.frame.origin.y = passwordField.frame.minY - 50
+                emailTextField.frame.size = CGSize(width: view.frame.width - 100, height: 35)
+                emailTextField.frame.origin.x = view.frame.width / 2 - emailTextField.frame.width / 2
+                emailTextField.frame.origin.y = passwordTextField.frame.minY - 50
                 
-                usernameField.frame.size = CGSize(width: view.frame.width - 100, height: 35)
-                usernameField.frame.origin.x = view.frame.width / 2 - usernameField.frame.width / 2
-                usernameField.frame.origin.y = emailField.frame.minY - 50
+                usernameTextField.frame.size = CGSize(width: view.frame.width - 100, height: 35)
+                usernameTextField.frame.origin.x = view.frame.width / 2 - usernameTextField.frame.width / 2
+                usernameTextField.frame.origin.y = emailTextField.frame.minY - 50
             }
         }
     }
     
     @objc func registerButtonPressed() {
         
-        if emailField.text!.isValidEmail() && (passwordField.text?.count)! > 4 && passwordConfirmationField.text! == passwordField.text! && (usernameField.text?.isEmpty)! == false {
-            
-            NetworkManager.register(email: emailField.text!, password: passwordField.text!, repassword: passwordConfirmationField.text!, username: usernameField.text!) { (data, error) in
+        if emailTextField.text!.isValidEmail() && (passwordTextField.text?.count)! > 4 && passwordConfirmationTextField.text! == passwordTextField.text! && (usernameTextField.text?.isEmpty)! == false {
+            NetworkManager.register(email: emailTextField.text!, password: passwordTextField.text!, repassword: passwordConfirmationTextField.text!, username: usernameTextField.text!) { (data, error) in
                 
                 if let registrationData = data {
                     print("Session ID: \(registrationData.sessionId)")
 
                     NetworkManager.sessionId = registrationData.sessionId
                     
-                    User.sharedInstance.name = self.usernameField.text!
+                    User.sharedInstance.name = self.usernameTextField.text!
                     User.sharedInstance.isPublic = true
                     
                     NetworkManager.downloadProfiles { (users, error) in
@@ -164,34 +160,35 @@ class RegistrationViewController: UIViewController {
                             print("Failed to download users.")
                         }
                     }
-                    
                     self.performSegue(withIdentifier: "goToMainVCFromRegistration", sender: self)
-                } else {
-                    if let connectionError = error {
-                        if connectionError.localizedDescription == "The Internet connection appears to be offline." {
-                            let alert = UIAlertController(title: "No internet connection", message: "Make sure that your device is connected to the internet.", preferredStyle: .alert)
-                            let action = UIAlertAction(title: "OK", style: .cancel, handler: nil)
-                            alert.addAction(action)
-                            self.present(alert, animated: true)
-                            print("Network connection problem.")
-                        }
+                } else if let connectionError = error {
+                    if connectionError.localizedDescription == "The Internet connection appears to be offline." {
+                        let alert = UIAlertController(title: "No internet connection", message: "Make sure that your device is connected to the internet.", preferredStyle: .alert)
+                        let action = UIAlertAction(title: "OK", style: .cancel, handler: nil)
+                        alert.addAction(action)
+                        self.present(alert, animated: true)
+                        print("Network connection problem.")
                     }
+                } else {
+                    let alert = UIAlertController(title: "Registration failed", message: "The username or email is already taken.", preferredStyle: .alert)
+                    let action = UIAlertAction(title: "OK", style: .cancel, handler: nil)
+                    alert.addAction(action)
+                    self.present(alert, animated: true)
+                    print("Username or email is taken.")
                 }
             }
-            
         } else {
-            
-            if !emailField.text!.isValidEmail() {
+            if !emailTextField.text!.isValidEmail() {
                 let alert = UIAlertController(title: "Registration failed", message: "Invalid email address. Please try again.", preferredStyle: .alert)
                 let action = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
                 alert.addAction(action)
                 present(alert, animated: true, completion: nil)
-            } else if (passwordField.text?.count)! < 4 {
+            } else if (passwordTextField.text?.count)! < 4 {
                 let alert = UIAlertController(title: "Registration failed", message: "The password should contain at least 5 characters.", preferredStyle: .alert)
                 let action = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
                 alert.addAction(action)
                 present(alert, animated: true, completion: nil)
-            } else if passwordConfirmationField.text != passwordField.text {
+            } else if passwordConfirmationTextField.text != passwordTextField.text {
                 let alert = UIAlertController(title: "Registration failed", message: "Password confirmation is incorrect. Please try again.", preferredStyle: .alert)
                 let action = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
                 alert.addAction(action)
@@ -203,21 +200,19 @@ class RegistrationViewController: UIViewController {
     @objc func keyboardWillAppear(notification: Notification) {
         
         shouldUpdateLayouts = false
-        
         isKeyboardVisible = true
         
         keyboardFrame = notification.userInfo!["UIKeyboardFrameEndUserInfoKey"] as! CGRect
-        
         updateViewFramesWithKeyboard()
     }
     
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
-        
+
         coordinator.animate(alongsideTransition: { (context: UIViewControllerTransitionCoordinatorContext) in
             
         }) { (context: UIViewControllerTransitionCoordinatorContext) in
             
-            print("Rotation finished.")
+            print("Device rotation finished.")
             
             if self.isKeyboardVisible {
                 self.updateViewFramesWithKeyboard()
@@ -226,8 +221,10 @@ class RegistrationViewController: UIViewController {
     }
     
     @objc func didTapOnView() {
+        
         shouldUpdateLayouts = true
         isKeyboardVisible = false
+        
         view.endEditing(true)
         view.setNeedsLayout()
     }
@@ -235,56 +232,121 @@ class RegistrationViewController: UIViewController {
     func updateViewFramesWithKeyboard() {
         
         if UIDevice.current.orientation == UIDeviceOrientation.portrait {
-            
             registrationButton.isHidden = true
             loginView.isHidden = true
             
-            passwordConfirmationField.frame.size = CGSize(width: view.frame.width - 70, height: 35)
-            passwordConfirmationField.frame.origin.x = view.frame.width / 2 - passwordConfirmationField.frame.width / 2
-            passwordConfirmationField.frame.origin.y = keyboardFrame.minY - (passwordConfirmationField.frame.height + 10)
-            
-            passwordField.frame.size = CGSize(width: view.frame.width - 70, height: 35)
-            passwordField.frame.origin.x = view.frame.width / 2 - passwordField.frame.width / 2
-            passwordField.frame.origin.y = passwordConfirmationField.frame.minY - 50
-            
-            emailField.frame.size = CGSize(width: view.frame.width - 70, height: 35)
-            emailField.frame.origin.x = view.frame.width / 2 - emailField.frame.width / 2
-            emailField.frame.origin.y = passwordField.frame.minY - 50
-            
-            usernameField.frame.size = CGSize(width: view.frame.width - 70, height: 35)
-            usernameField.frame.origin.x = view.frame.width / 2 - usernameField.frame.width / 2
-            usernameField.frame.origin.y = emailField.frame.minY - 50
-            
+            if passwordConfirmationTextField.isEditing {
+                passwordConfirmationTextField.frame.size = CGSize(width: view.frame.width - 70, height: 35)
+                passwordConfirmationTextField.frame.origin.x = view.frame.width / 2 - passwordConfirmationTextField.frame.width / 2
+                passwordConfirmationTextField.frame.origin.y = keyboardFrame.minY - (passwordConfirmationTextField.frame.height + 10)
+                
+                passwordTextField.frame.size = CGSize(width: view.frame.width - 70, height: 35)
+                passwordTextField.frame.origin.x = view.frame.width / 2 - passwordTextField.frame.width / 2
+                passwordTextField.frame.origin.y = passwordConfirmationTextField.frame.minY - 50
+                
+                emailTextField.frame.size = CGSize(width: view.frame.width - 70, height: 35)
+                emailTextField.frame.origin.x = view.frame.width / 2 - emailTextField.frame.width / 2
+                emailTextField.frame.origin.y = passwordTextField.frame.minY - 50
+                
+                usernameTextField.frame.size = CGSize(width: view.frame.width - 70, height: 35)
+                usernameTextField.frame.origin.x = view.frame.width / 2 - usernameTextField.frame.width / 2
+                usernameTextField.frame.origin.y = emailTextField.frame.minY - 50
+            } else if passwordTextField.isEditing {
+                passwordTextField.frame.size = CGSize(width: view.frame.width - 70, height: 35)
+                passwordTextField.frame.origin.x = view.frame.width / 2 - passwordTextField.frame.width / 2
+                passwordTextField.frame.origin.y = keyboardFrame.minY - (passwordTextField.frame.height + 10)
+                
+                emailTextField.frame.size = CGSize(width: view.frame.width - 70, height: 35)
+                emailTextField.frame.origin.x = view.frame.width / 2 - emailTextField.frame.width / 2
+                emailTextField.frame.origin.y = passwordTextField.frame.minY - 50
+                
+                usernameTextField.frame.size = CGSize(width: view.frame.width - 70, height: 35)
+                usernameTextField.frame.origin.x = view.frame.width / 2 - usernameTextField.frame.width / 2
+                usernameTextField.frame.origin.y = emailTextField.frame.minY - 50
+                
+                passwordConfirmationTextField.isHidden = true
+            } else if emailTextField.isEditing {
+                emailTextField.frame.size = CGSize(width: view.frame.width - 70, height: 35)
+                emailTextField.frame.origin.x = view.frame.width / 2 - emailTextField.frame.width / 2
+                emailTextField.frame.origin.y = keyboardFrame.minY - (emailTextField.frame.height + 10)
+                
+                usernameTextField.frame.size = CGSize(width: view.frame.width - 70, height: 35)
+                usernameTextField.frame.origin.x = view.frame.width / 2 - usernameTextField.frame.width / 2
+                usernameTextField.frame.origin.y = emailTextField.frame.minY - 50
+                
+                passwordConfirmationTextField.isHidden = true
+                passwordTextField.isHidden = true
+            } else {
+                usernameTextField.frame.size = CGSize(width: view.frame.width - 70, height: 35)
+                usernameTextField.frame.origin.x = view.frame.width / 2 - usernameTextField.frame.width / 2
+                usernameTextField.frame.origin.y = keyboardFrame.minY - (usernameTextField.frame.height + 10)
+                
+                passwordConfirmationTextField.isHidden = true
+                passwordTextField.isHidden = true
+                emailTextField.isHidden = true
+            }
         } else {
-            
             registrationButton.isHidden = true
             loginView.isHidden = true
             
-            passwordConfirmationField.frame.size = CGSize(width: view.frame.width - 100, height: 35)
-            passwordConfirmationField.frame.origin.x = view.frame.width / 2 - passwordConfirmationField.frame.width / 2
-            passwordConfirmationField.frame.origin.y = keyboardFrame.minY - (passwordConfirmationField.frame.height + 10)
-            
-            passwordField.frame.size = CGSize(width: view.frame.width - 100, height: 35)
-            passwordField.frame.origin.x = view.frame.width / 2 - passwordField.frame.width / 2
-            passwordField.frame.origin.y = passwordConfirmationField.frame.minY - 50
-            
-            emailField.frame.size = CGSize(width: view.frame.width - 100, height: 35)
-            emailField.frame.origin.x = view.frame.width / 2 - emailField.frame.width / 2
-            emailField.frame.origin.y = passwordField.frame.minY - 50
-            
-            usernameField.frame.size = CGSize(width: view.frame.width - 100, height: 35)
-            usernameField.frame.origin.x = view.frame.width / 2 - usernameField.frame.width / 2
-            usernameField.frame.origin.y = emailField.frame.minY - 50
+            if passwordConfirmationTextField.isEditing {
+                passwordConfirmationTextField.frame.size = CGSize(width: view.frame.width - 100, height: 35)
+                passwordConfirmationTextField.frame.origin.x = view.frame.width / 2 - passwordConfirmationTextField.frame.width / 2
+                passwordConfirmationTextField.frame.origin.y = keyboardFrame.minY - (passwordConfirmationTextField.frame.height + 10)
+                
+                passwordTextField.frame.size = CGSize(width: view.frame.width - 100, height: 35)
+                passwordTextField.frame.origin.x = view.frame.width / 2 - passwordTextField.frame.width / 2
+                passwordTextField.frame.origin.y = passwordConfirmationTextField.frame.minY - 50
+                
+                emailTextField.frame.size = CGSize(width: view.frame.width - 100, height: 35)
+                emailTextField.frame.origin.x = view.frame.width / 2 - emailTextField.frame.width / 2
+                emailTextField.frame.origin.y = passwordTextField.frame.minY - 50
+                
+                usernameTextField.frame.size = CGSize(width: view.frame.width - 100, height: 35)
+                usernameTextField.frame.origin.x = view.frame.width / 2 - usernameTextField.frame.width / 2
+                usernameTextField.frame.origin.y = emailTextField.frame.minY - 50
+            } else if passwordTextField.isEditing {
+                passwordConfirmationTextField.isHidden = true
+                
+                passwordTextField.frame.size = CGSize(width: view.frame.width - 100, height: 35)
+                passwordTextField.frame.origin.x = view.frame.width / 2 - passwordTextField.frame.width / 2
+                passwordTextField.frame.origin.y = keyboardFrame.minY - (passwordTextField.frame.height + 10)
+                
+                emailTextField.frame.size = CGSize(width: view.frame.width - 100, height: 35)
+                emailTextField.frame.origin.x = view.frame.width / 2 - emailTextField.frame.width / 2
+                emailTextField.frame.origin.y = passwordTextField.frame.minY - 50
+                
+                usernameTextField.frame.size = CGSize(width: view.frame.width - 100, height: 35)
+                usernameTextField.frame.origin.x = view.frame.width / 2 - usernameTextField.frame.width / 2
+                usernameTextField.frame.origin.y = emailTextField.frame.minY - 50
+            } else if emailTextField.isEditing {
+                passwordConfirmationTextField.isHidden = true
+                passwordTextField.isHidden = true
+                
+                emailTextField.frame.size = CGSize(width: view.frame.width - 100, height: 35)
+                emailTextField.frame.origin.x = view.frame.width / 2 - emailTextField.frame.width / 2
+                emailTextField.frame.origin.y = keyboardFrame.minY - (emailTextField.frame.height + 10)
+                
+                usernameTextField.frame.size = CGSize(width: view.frame.width - 100, height: 35)
+                usernameTextField.frame.origin.x = view.frame.width / 2 - usernameTextField.frame.width / 2
+                usernameTextField.frame.origin.y = emailTextField.frame.minY - 50
+            } else {
+                passwordConfirmationTextField.isHidden = true
+                passwordTextField.isHidden = true
+                emailTextField.isHidden = true
+                
+                usernameTextField.frame.size = CGSize(width: view.frame.width - 100, height: 35)
+                usernameTextField.frame.origin.x = view.frame.width / 2 - usernameTextField.frame.width / 2
+                usernameTextField.frame.origin.y = keyboardFrame.minY - (usernameTextField.frame.height + 10)
+            } 
         }
     }
 }
 
 extension RegistrationViewController: UITextViewDelegate {
-    
     func textView(_ textView: UITextView, shouldInteractWith URL: URL, in characterRange: NSRange, interaction: UITextItemInteraction) -> Bool {
         
         print("Login pressed.")
-        
         dismiss(animated: true, completion: nil)
         
         return false
@@ -292,15 +354,20 @@ extension RegistrationViewController: UITextViewDelegate {
 }
 
 extension RegistrationViewController: UITextFieldDelegate {
-    
     func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {
-        if (passwordField.text?.isEmpty)! || (emailField.text?.isEmpty)! || (passwordConfirmationField.text?.isEmpty)! {
+        
+        if (passwordTextField.text?.isEmpty)! || (emailTextField.text?.isEmpty)! || (passwordConfirmationTextField.text?.isEmpty)! {
             registrationButton.isEnabled = false
             registrationButton.alpha = 0.5
         } else {
             registrationButton.isEnabled = true
             registrationButton.alpha = 1
         }
+        
+        usernameTextField.isHidden = false
+        emailTextField.isHidden = false
+        passwordTextField.isHidden = false
+        passwordConfirmationTextField.isHidden = false
         
         return true
     }

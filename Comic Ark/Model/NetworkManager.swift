@@ -177,15 +177,6 @@ class NetworkManager {
         sendRequest(to: urlString, method: .get, parameters: nil, headers: headers, completion: completion)
     }
     
-    // Method that sends a request to Google Books containing an ISBN number and returns book data:
-    
-//    static func getBook(for isbn: String, completion: @escaping(_ data: GoogleBooksResponse?, _ error: Error?) -> Void) {
-//
-//        let urlString = "https://www.googleapis.com/books/v1/volumes?q=isbn" + isbn + "&key=AIzaSyBCGhzSNu1qzUAW4VbF_h1bET_wPfyZzqM"
-//
-//        sendRequest(to: urlString, method: .get, parameters: nil, headers: nil, completion: completion)
-//    }
-    
     static func getJSONData(for isbn: String, finished: @escaping (GoogleBooksResponse?) -> Void) {
         
         var decodedJSON: GoogleBooksResponse?
@@ -215,6 +206,4 @@ class NetworkManager {
             
             }.resume()
     }
-    
-    
 }

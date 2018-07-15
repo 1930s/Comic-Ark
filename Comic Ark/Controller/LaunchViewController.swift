@@ -29,7 +29,7 @@ class LaunchViewController: UIViewController {
                     print("Downloading comics...")
 
                     NetworkManager.downloadPrivateCollection { (comics, error) in
-
+                        
                         if let loadedComics = comics {
                             for comic in loadedComics {
                                 comic.downloadImage()

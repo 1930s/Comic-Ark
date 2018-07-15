@@ -9,6 +9,7 @@
 import UIKit
 
 class PublicCollectionViewController: UIViewController {
+    var selectedUser = String()
     
     @IBOutlet weak var tableView: UITableView!
     
@@ -16,6 +17,7 @@ class PublicCollectionViewController: UIViewController {
         super.viewWillAppear(animated)
         
         self.tabBarController?.tabBar.isHidden = true
+        self.title = "\(selectedUser)'s collection"
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -36,7 +38,6 @@ class PublicCollectionViewController: UIViewController {
 }
 
 extension PublicCollectionViewController: UITableViewDelegate, UITableViewDataSource {
-    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let publicCollectionCell = tableView.dequeueReusableCell(withIdentifier: "CollectionCell", for: indexPath) as! CollectionCell

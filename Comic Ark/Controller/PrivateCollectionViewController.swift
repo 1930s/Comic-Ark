@@ -42,11 +42,6 @@ class PrivateCollectionViewController: UIViewController {
         
         present(barcodeScannerViewController, animated: true, completion: nil)
     }
-    
-   
-    
-    
-    
 }
 
 // MARK: - UITableView delegate methods:
@@ -64,27 +59,33 @@ extension PrivateCollectionViewController: UITableViewDelegate, UITableViewDataS
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        
         return User.sharedInstance.collection.count
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
+        
         return 1
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        
         return 88
     }
     
     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        
         return true
     }
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+        
         if editingStyle == UITableViewCellEditingStyle.delete {
             
             let bookToDelete = User.sharedInstance.collection[indexPath.row]
             
             NetworkManager.delete(book: bookToDelete) { (confirmation, error) in
+                
                 if error == nil, let deleteConfirmation = confirmation {
                     print("Book has been deleted: \(String(describing: deleteConfirmation["success"]))")
                     User.sharedInstance.collection.remove(at: indexPath.row)
@@ -100,12 +101,12 @@ extension PrivateCollectionViewController: UITableViewDelegate, UITableViewDataS
 // MARK: - BarcodeScanner delegate methods:
 
 extension PrivateCollectionViewController: BarcodeScannerCodeDelegate,  BarcodeScannerErrorDelegate, BarcodeScannerDismissalDelegate {
-    
     func scanner(_ controller: BarcodeScannerViewController, didCaptureCode code: String, type: String) {
         
         print(code)
         
         NetworkManager.getJSONData(for: code) { (decodedJSON) in
+            
             if decodedJSON != nil {
                 let newComic = Comic.init(jsonResponse: decodedJSON!, isbn: code)
                 
@@ -114,18 +115,14 @@ extension PrivateCollectionViewController: BarcodeScannerCodeDelegate,  BarcodeS
                     User.sharedInstance.addToCollection(comic: newComic)
                     
                     NetworkManager.upload(book: newComic, completion: { (confirmation, error) in
+                        
                         if error == nil, let uploadConfirmation = confirmation {
-                            print(uploadConfirmation.bookId)
-                            print(uploadConfirmation.success)
-                            
                             newComic.id = uploadConfirmation.bookId
-                            
-                            print("Book has been successfully uploaded.")
+                            print("Book has been uploaded: \(uploadConfirmation.success)")
                         } else {
                             print("Failed to upload book.")
                         }
                     })
-                    
                     
                     DispatchQueue.main.async {
                         self.tableView.reloadData()
@@ -154,6 +151,7 @@ extension PrivateCollectionViewController: BarcodeScannerCodeDelegate,  BarcodeS
     }
     
     func scanner(_ controller: BarcodeScannerViewController, didReceiveError error: Error) {
+        
         print(error)
     }
     
@@ -163,5 +161,4 @@ extension PrivateCollectionViewController: BarcodeScannerCodeDelegate,  BarcodeS
             controller.reset(animated: true)
         }
     }
-    
 }
