@@ -90,6 +90,16 @@ extension PrivateCollectionViewController: UITableViewDelegate, UITableViewDataS
                     print("Book has been deleted: \(String(describing: deleteConfirmation["success"]))")
                     User.sharedInstance.collection.remove(at: indexPath.row)
                     tableView.reloadData()
+                    
+                    NetworkManager.downloadProfiles { (users, error) in
+                        
+                        if error == nil, let downloadedUsers = users {
+                            Users.sharedInstance.publicUsers.removeAll()
+                            Users.sharedInstance.publicUsers.append(contentsOf: downloadedUsers)
+                        } else {
+                            print("Failed to download users.")
+                        }
+                    }
                 } else {
                     print("Failed to delete book.")
                 }
@@ -119,6 +129,16 @@ extension PrivateCollectionViewController: BarcodeScannerCodeDelegate,  BarcodeS
                         if error == nil, let uploadConfirmation = confirmation {
                             newComic.id = uploadConfirmation.bookId
                             print("Book has been uploaded: \(uploadConfirmation.success)")
+                            
+                            NetworkManager.downloadProfiles { (users, error) in
+                                
+                                if error == nil, let downloadedUsers = users {
+                                    Users.sharedInstance.publicUsers.removeAll()
+                                    Users.sharedInstance.publicUsers.append(contentsOf: downloadedUsers)
+                                } else {
+                                    print("Failed to download users.")
+                                }
+                            }
                         } else {
                             print("Failed to upload book.")
                         }

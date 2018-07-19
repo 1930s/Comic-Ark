@@ -39,6 +39,16 @@ class SettingsViewController: UITableViewController {
             
             if error == nil, let editConfirmation = confirmation {
                 print("Profile has been updated: \(String(describing: editConfirmation["success"]))")
+                
+                NetworkManager.downloadProfiles { (users, error) in
+                    
+                    if error == nil, let downloadedUsers = users {
+                        Users.sharedInstance.publicUsers.removeAll()
+                        Users.sharedInstance.publicUsers.append(contentsOf: downloadedUsers)
+                    } else {
+                        print("Failed to download users.")
+                    }
+                }
             } else {
                 print("Failed to update profile.")
             }
