@@ -24,6 +24,11 @@ class PublicCollectionViewController: UIViewController {
         super.viewWillDisappear(animated)
         
         self.tabBarController?.tabBar.isHidden = false
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        
         Users.sharedInstance.selectedUserCollection.removeAll()
     }
 
