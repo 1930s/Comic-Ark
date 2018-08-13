@@ -44,7 +44,6 @@ class Comic: Codable {
     }
     
     func downloadImage() {
-        
         URLSession.shared.dataTask(with: URL(string: coverUrl!)!, completionHandler: { (data, response, error) in
             if let httpResponse = response as? HTTPURLResponse {
                 if httpResponse.statusCode == 200 && error == nil && data != nil {

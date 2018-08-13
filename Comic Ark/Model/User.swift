@@ -9,27 +9,26 @@
 import Foundation
 
 class User {
+    static let sharedInstance: User = {
+        let instance = User()
+        return instance
+    }()
+    
+    private init() {}
+    
     var name = String() {
         didSet {
             UserDefaults.standard.setValue(name, forKey: "username")
         }
     }
     var collection = [Comic]()
-    
     var isPublic: Bool = true {
         didSet {
             UserDefaults.standard.setValue(isPublic, forKey: "isPublic")
         }
     }
     
-    
-    static let sharedInstance: User = {
-        let instance = User()
-        return instance
-    }()
-    
     func addToCollection(comic: Comic) {
-        
         if !collection.contains(where: { (item) -> Bool in
             item.isbn == comic.isbn
         }) {
@@ -41,11 +40,8 @@ class User {
         if let loadedUsername = UserDefaults.standard.object(forKey: "username") as? String {
             name = loadedUsername
         }
-        
         if let loadedIsPublic = UserDefaults.standard.object(forKey: "isPublic") as? Bool {
             isPublic = loadedIsPublic
         }
     }
-    
-    private init() {}
 }

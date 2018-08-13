@@ -14,12 +14,13 @@ class CollectionCell: UITableViewCell {
     @IBOutlet weak var authorsLabel: UILabel!
     @IBOutlet weak var publisherLabel: UILabel!
     @IBOutlet var ratingButtons: [UIButton]!
+    @IBOutlet weak var blurView: UIVisualEffectView!
     
-    var comic: Comic! {
+    var comic: Comic? {
         didSet {
+            guard let comic = comic else { return }
             
             titleLabel.text = comic.title
-            
             authorsLabel.text?.removeAll()
                 
             for (index, author) in comic.authors.enumerated() {
@@ -30,11 +31,9 @@ class CollectionCell: UITableViewCell {
                     }
                 }
             
-           
             if let comicPublisher = comic.publisher {
                 publisherLabel.text = comicPublisher
             }
-            
                 if comic.rating == 1 {
                     ratingButtons[0].isSelected = true
                     ratingButtons[1].isSelected = false
@@ -68,9 +67,16 @@ class CollectionCell: UITableViewCell {
             button.imageView?.contentMode = .scaleAspectFit
         }
     }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        
+        blurView.layer.cornerRadius = 6.0
+        blurView.clipsToBounds = true
+    }
 
     @IBAction func ratingPressed(_ sender: UIButton) {
-        
+        guard let comic = comic else { return }
         if sender.tag == 1 {
             if sender.isSelected {
                 sender.isSelected = false
@@ -92,7 +98,7 @@ class CollectionCell: UITableViewCell {
                 ratingButtons[0].isSelected = true
                 comic.rating = 2
             }
-        } else {
+        } else if sender.tag == 3 {
             if sender.isSelected {
                 sender.isSelected = false
                 ratingButtons[0].isSelected = false
@@ -107,13 +113,14 @@ class CollectionCell: UITableViewCell {
         }
         
         NetworkManager.rate(book: comic) { (response, error) in
-
-            if error == nil {
-                    print("Book has been successfully updated.")
-             
+            if error == nil, let ratingConfirmation = response, ratingConfirmation["success"] == true {
+                print("Book has been successfully updated.")
             } else {
-                print(error!)
+                if let error = error {
+                    print(error)
+                }
                 print("Failed to update book.")
+                NotificationCenter.default.post(name: Notification.Name("DidFailRatingBook"), object: nil)
             }
         }
     }

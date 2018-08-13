@@ -40,7 +40,6 @@ class CollectorsViewController: UIViewController {
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        
         if segue.identifier == "goToPublicCollectionVC" {
             if let indexPath = self.tableView.indexPathForSelectedRow {
                 let controller = segue.destination as! PublicCollectionViewController
@@ -55,30 +54,27 @@ class CollectorsViewController: UIViewController {
     }
     
     func isSearchBarEmpty() -> Bool {
-        
         return searchController.searchBar.text?.isEmpty ?? true
     }
     
     func isFiltering() -> Bool {
-        
         return searchController.isActive && !isSearchBarEmpty()
     }
     
 }
 
+// MARK: - UITableView delegate methods:
+
 extension CollectorsViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
         let collectorCell = tableView.dequeueReusableCell(withIdentifier: "collectorCell", for: indexPath) as! CollectorCell
         
         if isFiltering() {
             collectorCell.publicProfile = Users.sharedInstance.filteredPublicUsers[indexPath.row]
         } else {
             collectorCell.publicProfile = Users.sharedInstance.publicUsers[indexPath.row]
-            
         }
         return collectorCell
-        
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -91,10 +87,9 @@ extension CollectorsViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
         NetworkManager.downloadPublicCollection(ofUserWithId: isFiltering() == true ? Users.sharedInstance.filteredPublicUsers[indexPath.row].id : Users.sharedInstance.publicUsers[indexPath.row].id) { (comics, error) in
             
-            if let loadedComics = comics {
+            if error == nil, let loadedComics = comics {
                 for comic in loadedComics {
                     comic.downloadImage()
                     Users.sharedInstance.selectedUserCollection.append(comic)
@@ -103,11 +98,20 @@ extension CollectorsViewController: UITableViewDelegate, UITableViewDataSource {
                 self.performSegue(withIdentifier: "goToPublicCollectionVC", sender: self)
                 self.tableView.deselectRow(at: indexPath, animated: true)
             } else {
-                print("Failed to download comics.")
+                if let error = error {
+                    print(error)
+                }
+                print("Network connection problem.")
+                let alert = UIAlertController(title: "No internet connection", message: "Make sure that your device is connected to the internet.", preferredStyle: .alert)
+                let action = UIAlertAction(title: "OK", style: .cancel, handler: nil)
+                alert.addAction(action)
+                self.present(alert, animated: true)
             }
         }
     }
 }
+
+// MARK: - UISearchController delegate methods:
 
 extension CollectorsViewController: UISearchResultsUpdating {
     func updateSearchResults(for searchController: UISearchController) {

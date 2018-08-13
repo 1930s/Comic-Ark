@@ -16,6 +16,8 @@ class RegistrationViewController: UIViewController {
     let passwordConfirmationTextField = UITextField()
     let registrationButton = UIButton()
     let loginView = UITextView()
+    let appLogo = UIImageView()
+    let logoContainer = UIView()
     
     var shouldUpdateLayouts = true
     var isKeyboardVisible = false
@@ -29,7 +31,22 @@ class RegistrationViewController: UIViewController {
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(didTapOnView))
         view.addGestureRecognizer(tapGesture)
         
+        appLogo.image = #imageLiteral(resourceName: "Icon")
+        appLogo.contentMode = .scaleAspectFit
+        appLogo.translatesAutoresizingMaskIntoConstraints = false
+        
+        view.addSubview(logoContainer)
+        logoContainer.addSubview(appLogo)
+        logoContainer.backgroundColor = .clear
+        logoContainer.translatesAutoresizingMaskIntoConstraints = false
+        
         usernameTextField.placeholder = "Your username."
+        usernameTextField.attributedPlaceholder = NSAttributedString(string: usernameTextField.placeholder!, attributes: [NSAttributedStringKey(rawValue: NSAttributedStringKey.foregroundColor.rawValue): #colorLiteral(red: 0.1803921569, green: 0.2509803922, blue: 0.3411764706, alpha: 0.4)])
+        usernameTextField.textColor = #colorLiteral(red: 0.1803921569, green: 0.2509803922, blue: 0.3411764706, alpha: 1)
+        usernameTextField.layer.borderColor = #colorLiteral(red: 0.3176470588, green: 0.7960784314, blue: 0.7019607843, alpha: 0.5)
+        usernameTextField.layer.borderWidth = 0.5
+        usernameTextField.layer.cornerRadius = 4.0
+        usernameTextField.clipsToBounds = true
         usernameTextField.textAlignment = .left
         usernameTextField.keyboardType = .default
         usernameTextField.borderStyle = .roundedRect
@@ -37,6 +54,12 @@ class RegistrationViewController: UIViewController {
         view.addSubview(usernameTextField)
         
         emailTextField.placeholder = "Your email address."
+        emailTextField.attributedPlaceholder = NSAttributedString(string: emailTextField.placeholder!, attributes: [NSAttributedStringKey(rawValue: NSAttributedStringKey.foregroundColor.rawValue): #colorLiteral(red: 0.1803921569, green: 0.2509803922, blue: 0.3411764706, alpha: 0.4)])
+        emailTextField.textColor = #colorLiteral(red: 0.1803921569, green: 0.2509803922, blue: 0.3411764706, alpha: 1)
+        emailTextField.layer.borderColor = #colorLiteral(red: 0.3176470588, green: 0.7960784314, blue: 0.7019607843, alpha: 0.5)
+        emailTextField.layer.borderWidth = 0.5
+        emailTextField.layer.cornerRadius = 4.0
+        emailTextField.clipsToBounds = true
         emailTextField.textAlignment = .left
         emailTextField.keyboardType = .emailAddress
         emailTextField.borderStyle = .roundedRect
@@ -44,13 +67,25 @@ class RegistrationViewController: UIViewController {
         view.addSubview(emailTextField)
         
         passwordTextField.placeholder = "Your password."
+        passwordTextField.attributedPlaceholder = NSAttributedString(string: passwordTextField.placeholder!, attributes: [NSAttributedStringKey(rawValue: NSAttributedStringKey.foregroundColor.rawValue): #colorLiteral(red: 0.1803921569, green: 0.2509803922, blue: 0.3411764706, alpha: 0.4)])
+        passwordTextField.textColor = #colorLiteral(red: 0.2347241044, green: 0.3214844465, blue: 0.4163216352, alpha: 1)
+        passwordTextField.layer.borderColor = #colorLiteral(red: 0.3176470588, green: 0.7960784314, blue: 0.7019607843, alpha: 0.5)
+        passwordTextField.layer.borderWidth = 0.5
+        passwordTextField.layer.cornerRadius = 4.0
+        passwordTextField.clipsToBounds = true
         passwordTextField.textAlignment = .left
         passwordTextField.isSecureTextEntry = true
         passwordTextField.borderStyle = .roundedRect
         passwordTextField.delegate = self
         view.addSubview(passwordTextField)
         
-        passwordConfirmationTextField.placeholder = "Re-enter your password."
+        passwordConfirmationTextField.placeholder = "Your password again."
+        passwordConfirmationTextField.attributedPlaceholder = NSAttributedString(string: passwordConfirmationTextField.placeholder!, attributes: [NSAttributedStringKey(rawValue: NSAttributedStringKey.foregroundColor.rawValue): #colorLiteral(red: 0.1803921569, green: 0.2509803922, blue: 0.3411764706, alpha: 0.4)])
+        passwordConfirmationTextField.textColor = #colorLiteral(red: 0.2347241044, green: 0.3214844465, blue: 0.4163216352, alpha: 1)
+        passwordConfirmationTextField.layer.borderColor = #colorLiteral(red: 0.3176470588, green: 0.7960784314, blue: 0.7019607843, alpha: 0.5)
+        passwordConfirmationTextField.layer.borderWidth = 0.5
+        passwordConfirmationTextField.layer.cornerRadius = 4.0
+        passwordConfirmationTextField.clipsToBounds = true
         passwordConfirmationTextField.textAlignment = .left
         passwordConfirmationTextField.isSecureTextEntry = true
         passwordConfirmationTextField.borderStyle = .roundedRect
@@ -58,7 +93,9 @@ class RegistrationViewController: UIViewController {
         view.addSubview(passwordConfirmationTextField)
         
         registrationButton.setTitle("Register", for: .normal)
-        registrationButton.backgroundColor = UIColor.red
+        registrationButton.backgroundColor = #colorLiteral(red: 0.2901960784, green: 0.7254901961, blue: 0.6392156863, alpha: 1)
+        registrationButton.layer.cornerRadius = 4.0
+        registrationButton.clipsToBounds = true
         registrationButton.alpha = 0.5
         registrationButton.addTarget(self, action: #selector(registerButtonPressed), for: .touchUpInside)
         view.addSubview(registrationButton)
@@ -76,7 +113,8 @@ class RegistrationViewController: UIViewController {
         text.addAttribute(NSAttributedStringKey.paragraphStyle, value: paragraphStyle, range: NSMakeRange(0, text.length))
         
         loginView.attributedText = text
-        loginView.linkTextAttributes = [NSAttributedStringKey.foregroundColor.rawValue: UIColor.red]
+        loginView.textColor = #colorLiteral(red: 0.1803921569, green: 0.2509803922, blue: 0.3411764706, alpha: 1)
+        loginView.linkTextAttributes = [NSAttributedStringKey.foregroundColor.rawValue: #colorLiteral(red: 0.9607843137, green: 0.3647058824, blue: 0.2431372549, alpha: 1)]
         loginView.isEditable = false
         loginView.isSelectable = true
         loginView.delegate = self
@@ -86,17 +124,23 @@ class RegistrationViewController: UIViewController {
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         
+        // Update frame and position of all views if keyboard is not visible:
+        
         if shouldUpdateLayouts == true {
             registrationButton.isHidden = false
             loginView.isHidden = false
             
             if UIDevice.current.orientation == UIDeviceOrientation.portrait {
+                appLogo.isHidden = false
+                
                 loginView.frame.size = CGSize(width: view.frame.width - 30, height: 25)
                 loginView.frame.origin.x = view.frame.width / 2 - loginView.frame.width / 2
                 loginView.frame.origin.y = view.frame.maxY - 50
                 
-                registrationButton.frame = CGRect(x: view.frame.width / 2 - 100, y: loginView.frame.minY - 30, width: 200, height: 30)
-                
+                registrationButton.frame.size = CGSize(width: view.frame.width - 70, height: 35)
+                registrationButton.frame.origin.x = view.frame.width / 2 - registrationButton.frame.width / 2
+                registrationButton.frame.origin.y = loginView.frame.minY - 40
+
                 passwordConfirmationTextField.frame.size = CGSize(width: view.frame.width - 70, height: 35)
                 passwordConfirmationTextField.frame.origin.x = view.frame.width / 2 - passwordConfirmationTextField.frame.width / 2
                 passwordConfirmationTextField.frame.origin.y = registrationButton.frame.minY - 50
@@ -112,12 +156,28 @@ class RegistrationViewController: UIViewController {
                 usernameTextField.frame.size = CGSize(width: view.frame.width - 70, height: 35)
                 usernameTextField.frame.origin.x = view.frame.width / 2 - usernameTextField.frame.width / 2
                 usernameTextField.frame.origin.y = emailTextField.frame.minY - 50
+                
+                logoContainer.topAnchor.constraint(equalTo: view.topAnchor, constant: 0).isActive = true
+                logoContainer.bottomAnchor.constraint(equalTo: usernameTextField.topAnchor, constant: 0).isActive = true
+                logoContainer.rightAnchor.constraint(equalTo: view.rightAnchor, constant: 0).isActive = true
+                logoContainer.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 0).isActive = true
+                logoContainer.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+                
+                appLogo.topAnchor.constraint(equalTo: logoContainer.topAnchor, constant: 0).isActive = true
+                appLogo.bottomAnchor.constraint(equalTo: logoContainer.bottomAnchor, constant: 0).isActive = true
+                appLogo.rightAnchor.constraint(equalTo: logoContainer.rightAnchor, constant: 0).isActive = true
+                appLogo.leftAnchor.constraint(equalTo: logoContainer.leftAnchor, constant: 0).isActive = true
+                appLogo.centerXAnchor.constraint(equalTo: logoContainer.centerXAnchor).isActive = true
             } else {
+                appLogo.isHidden = true
+                
                 loginView.frame.size = CGSize(width: view.frame.width - 30, height: 25)
                 loginView.frame.origin.x = view.frame.width / 2 - loginView.frame.width / 2
                 loginView.frame.origin.y = view.frame.maxY - 40
                 
-                registrationButton.frame = CGRect(x: view.frame.width / 2 - 100, y: loginView.frame.minY - 30, width: 200, height: 30)
+                registrationButton.frame.size = CGSize(width: view.frame.width - 100, height: 35)
+                registrationButton.frame.origin.x = view.frame.width / 2 - registrationButton.frame.width / 2
+                registrationButton.frame.origin.y = loginView.frame.minY - 40
                 
                 passwordConfirmationTextField.frame.size = CGSize(width: view.frame.width - 100, height: 35)
                 passwordConfirmationTextField.frame.origin.x = view.frame.width / 2 - passwordConfirmationTextField.frame.width / 2
@@ -139,11 +199,10 @@ class RegistrationViewController: UIViewController {
     }
     
     @objc func registerButtonPressed() {
-        
         if emailTextField.text!.isValidEmail() && (passwordTextField.text?.count)! > 4 && passwordConfirmationTextField.text! == passwordTextField.text! && (usernameTextField.text?.isEmpty)! == false {
             NetworkManager.register(email: emailTextField.text!, password: passwordTextField.text!, repassword: passwordConfirmationTextField.text!, username: usernameTextField.text!) { (data, error) in
                 
-                if let registrationData = data {
+                if error == nil, let registrationData = data {
                     print("Session ID: \(registrationData.sessionId)")
 
                     NetworkManager.sessionId = registrationData.sessionId
@@ -198,7 +257,6 @@ class RegistrationViewController: UIViewController {
     }
     
     @objc func keyboardWillAppear(notification: Notification) {
-        
         shouldUpdateLayouts = false
         isKeyboardVisible = true
         
@@ -207,7 +265,6 @@ class RegistrationViewController: UIViewController {
     }
     
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
-
         coordinator.animate(alongsideTransition: { (context: UIViewControllerTransitionCoordinatorContext) in
             
         }) { (context: UIViewControllerTransitionCoordinatorContext) in
@@ -221,7 +278,6 @@ class RegistrationViewController: UIViewController {
     }
     
     @objc func didTapOnView() {
-        
         shouldUpdateLayouts = true
         isKeyboardVisible = false
         
@@ -231,9 +287,12 @@ class RegistrationViewController: UIViewController {
     
     func updateViewFramesWithKeyboard() {
         
+        // Update frame and position of all views if keyboard is visible:
+        
         if UIDevice.current.orientation == UIDeviceOrientation.portrait {
             registrationButton.isHidden = true
             loginView.isHidden = true
+            appLogo.isHidden = false
             
             if passwordConfirmationTextField.isEditing {
                 passwordConfirmationTextField.frame.size = CGSize(width: view.frame.width - 70, height: 35)
@@ -288,6 +347,7 @@ class RegistrationViewController: UIViewController {
         } else {
             registrationButton.isHidden = true
             loginView.isHidden = true
+            appLogo.isHidden = true
             
             if passwordConfirmationTextField.isEditing {
                 passwordConfirmationTextField.frame.size = CGSize(width: view.frame.width - 100, height: 35)
@@ -343,19 +403,23 @@ class RegistrationViewController: UIViewController {
     }
 }
 
+// MARK: - UITextView delegate method:
+
 extension RegistrationViewController: UITextViewDelegate {
     func textView(_ textView: UITextView, shouldInteractWith URL: URL, in characterRange: NSRange, interaction: UITextItemInteraction) -> Bool {
-        
         print("Login pressed.")
         dismiss(animated: true, completion: nil)
-        
         return false
     }
 }
 
+// MARK: - UITextField delegate methods:
+
 extension RegistrationViewController: UITextFieldDelegate {
+    
+    // Disable registration button when text fields are empty:
+    
     func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {
-        
         if (passwordTextField.text?.isEmpty)! || (emailTextField.text?.isEmpty)! || (passwordConfirmationTextField.text?.isEmpty)! {
             registrationButton.isEnabled = false
             registrationButton.alpha = 0.5
@@ -363,12 +427,10 @@ extension RegistrationViewController: UITextFieldDelegate {
             registrationButton.isEnabled = true
             registrationButton.alpha = 1
         }
-        
         usernameTextField.isHidden = false
         emailTextField.isHidden = false
         passwordTextField.isHidden = false
         passwordConfirmationTextField.isHidden = false
-        
         return true
     }
 }
