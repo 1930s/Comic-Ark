@@ -25,7 +25,7 @@ enum NetworkManagerRequest: String {
 }
 
 class NetworkManager {
-    private static let baseUrl = "http://138.197.187.213/comicArk"
+    private static let baseUrl = "http://104.248.25.12/comicArk"
     
     static var sessionId = String() {
         didSet {
